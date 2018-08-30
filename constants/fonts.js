@@ -1,5 +1,5 @@
 /**
- * @providesModule AppFonts
+ * @providesModule Fonts
 */
 
 import { Platform } from 'react-native';
