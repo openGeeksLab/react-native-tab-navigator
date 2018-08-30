@@ -11,20 +11,19 @@ const defaultScreenOptions = {
 
 const defaultNavigationConfig = {
   lazy: false,
-  defaultScreenOptions,
+  screenOptions: defaultScreenOptions,
 };
 
-function generateButtonsInformation(router) {
+function generateButtonsInformation(router, config) {
   const routesEntries = Object.entries(router);
   const buttonsArray = [];
 
   for (let i = 0; i < routesEntries.length; i++) {
     const screenKey = routesEntries[i][0];
     const screenOptions = {
+      ...config.screenOptions,
       ...routesEntries[i][1].screenOptions,
-      ...defaultScreenOptions,
     };
-
 
     if (!screenOptions.title) {
       screenOptions.title = screenKey;
@@ -43,9 +42,9 @@ function generateButtonsInformation(router) {
 
 function createTabNavigator(router, navConfig) {
   const navigatorRouter = router;
-  const navigatorConfig = { ...defaultNavigationConfig, navConfig };
+  const navigatorConfig = { ...defaultNavigationConfig, ...navConfig };
 
-  const buttonsInfo = generateButtonsInformation(navigatorRouter);
+  const buttonsInfo = generateButtonsInformation(navigatorRouter, navigatorConfig);
 
   return TabNavigation;
 }
