@@ -9,9 +9,7 @@ class TabNavigation extends Component {
   render() {
     return (
       <View style={styles.navigationContainer}>
-        <View style={styles.screenContainer} >
-          <Text>Test</Text>
-        </View>
+        <View style={styles.screenContainer} />
         <View>
           <BarPanel />
         </View>
