@@ -4,7 +4,17 @@ import TabButton from './tabButton';
 
 class TabButtonContainer extends Component {
   render() {
-    return (<TabButton />);
+    const {
+      onButtonPress,
+      buttonConfiguration,
+    } = this.props;
+
+    return (
+      <TabButton
+        onButtonPress={onButtonPress}
+        buttonConfiguration={buttonConfiguration}
+      />
+    );
   }
 }
 

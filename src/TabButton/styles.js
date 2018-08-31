@@ -5,7 +5,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   iconImageContianer: {
-
+    width: 30,
+    height: 25,
   },
   iconImage: {
     width: 30,

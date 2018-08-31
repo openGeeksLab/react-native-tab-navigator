@@ -1,4 +1,6 @@
-import TabNavigation from './tabNavigation';
+import React from 'react';
+
+import NavigatorView from './navigatorView';
 import TabButton from '../TabButton';
 
 // If title not specified title equal screen key by default
@@ -7,6 +9,11 @@ const defaultScreenOptions = {
   buttonView: TabButton,
   activeTintColor: '#0579fc',
   inactiveTintColor: '#818692',
+
+  tabIcon: null, // source of icon image
+  iconStyle: null, // style of icon image
+  textActiveStyle: null,
+  textInactiveStyle: null,
 };
 
 const defaultNavigationConfig = {
@@ -43,8 +50,17 @@ function generateButtonsInformation(router, config) {
 function createTabNavigator(router, navConfig) {
   const navigatorRouter = router;
   const navigatorConfig = { ...defaultNavigationConfig, ...navConfig };
-
   const buttonsInfo = generateButtonsInformation(navigatorRouter, navigatorConfig);
+
+  class TabNavigation extends React.Component {
+    render() {
+      return (
+        <NavigatorView
+          buttonsConfiguration={buttonsInfo}
+        />
+      );
+    }
+  }
 
   return TabNavigation;
 }
