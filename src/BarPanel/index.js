@@ -6,7 +6,7 @@ class BarPanelContainer extends Component {
 
   onButtonPress = (buttonConfig) => {
     const { navigate } = this.props;
-    navigate()
+    navigate(buttonConfig.key);
   }
 
   renderButton = (buttonConfig) => {
@@ -15,7 +15,7 @@ class BarPanelContainer extends Component {
 
     return (
       <TabButton
-        onPress={() => {}}
+        onPress={() => this.onButtonPress(buttonConfig)}
         buttonConfiguration={buttonConfig}
       />
     );
@@ -23,6 +23,7 @@ class BarPanelContainer extends Component {
 
   render() {
     const {
+      navigate,
       buttonsConfiguration,
     } = this.props;
 

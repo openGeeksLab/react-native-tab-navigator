@@ -7,7 +7,6 @@ import {
 } from 'react-native';
 
 import styles from './styles';
-import Icons from '../TabIcons';
 
 class TabButton extends Component {
   renderIconImage = (buttonConfiguration) => {
@@ -61,7 +60,6 @@ class TabButton extends Component {
         titleTextStyle.push(textActiveStyle);
       }
       if (activeTintColor) {
-        console.log('color: activeTintColor');
         titleTextStyle.push({ color: activeTintColor });
       }
     } else {
@@ -89,12 +87,15 @@ class TabButton extends Component {
   render() {
     const {
       active,
-      onButtonPress,
+      onPress,
       buttonConfiguration,
     } = this.props;
 
     return (
-      <TouchableOpacity style={styles.container}>
+      <TouchableOpacity
+        onPress={onPress}
+        style={styles.container}
+      >
         <View style={styles.iconImageContianer}>
           {this.renderIconImage(buttonConfiguration)}
         </View>

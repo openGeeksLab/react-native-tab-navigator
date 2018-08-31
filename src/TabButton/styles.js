@@ -8,7 +8,6 @@ const styles = StyleSheet.create({
   iconImageContianer: {
     width: 30,
     height: 25,
-    // alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 3,
   },

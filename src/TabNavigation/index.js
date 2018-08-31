@@ -30,6 +30,7 @@ function generateStateInitInformation(router, config) {
       ...config.screenOptions,
       ...item[1].screenOptions,
       active: false,
+      key: screenKey,
     };
 
     if (config.defaultRoute === screenKey) {
@@ -45,26 +46,15 @@ function generateStateInitInformation(router, config) {
   return buttonsArray;
 }
 
-function navigateToScreen(screenName, router, currentState) {
-  // const nextRouter = router.map((item) => {
-  //   const screenKey = item[0];
-  //   const screenOptions = {
-  //     ...config.screenOptions,
-  //     ...item[1].screenOptions,
-  //     active: false,
-  //   };
-  //
-  //   if (config.defaultRoute === screenKey) {
-  //     screenOptions.active = true;
-  //   }
-  //
-  //   if (!screenOptions.title) {
-  //     screenOptions.title = screenKey;
-  //   }
-  //
-  //   return { ...screenOptions };
-  // });
-  // return buttonsArray;
+function navigateToScreen(screenName, currentState) {
+  const nextState = currentState.map((item) => {
+    const nextItem = {
+      ...item,
+      active: item.key === screenName,
+    };
+    return nextItem;
+  });
+  return nextState;
 }
 
 function createTabNavigator(router, navConfig) {
@@ -79,7 +69,8 @@ function createTabNavigator(router, navConfig) {
     }
 
     navigateTo = (screenName) => {
-      this.routeState = navigateToScreen(screenName, navigatorRouter, this.routeState);
+      this.routeState = navigateToScreen(screenName, this.routeState);
+      this.forceUpdate();
     }
 
     render() {

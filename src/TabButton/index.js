@@ -5,13 +5,13 @@ import TabButton from './tabButton';
 class TabButtonContainer extends Component {
   render() {
     const {
-      onButtonPress,
+      onPress,
       buttonConfiguration,
     } = this.props;
 
     return (
       <TabButton
-        onButtonPress={onButtonPress}
+        onPress={onPress}
         buttonConfiguration={buttonConfiguration}
       />
     );
