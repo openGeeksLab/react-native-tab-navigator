@@ -23,27 +23,19 @@ const defaultNavigationConfig = {
 
 function generateButtonsInformation(router, config) {
   const routesEntries = Object.entries(router);
-  const buttonsArray = [];
-
-  for (let i = 0; i < routesEntries.length; i++) {
-    const screenKey = routesEntries[i][0];
+  const buttonsArray = routesEntries.map((item) => {
+    const screenKey = item[0];
     const screenOptions = {
       ...config.screenOptions,
-      ...routesEntries[i][1].screenOptions,
+      ...item[1].screenOptions,
     };
 
     if (!screenOptions.title) {
       screenOptions.title = screenKey;
     }
 
-    const tmpButton = {
-      ...screenOptions,
-    };
-
-    buttonsArray.push(tmpButton);
-  }
-
-  console.log(buttonsArray);
+    return { ...screenOptions };
+  });
   return buttonsArray;
 }
 

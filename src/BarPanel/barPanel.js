@@ -6,29 +6,26 @@ import TabButton from '../TabButton';
 import styles from './styles';
 
 class BarPanel extends Component {
+  renderButtons = buttonsConfiguration => (
+    buttonsConfiguration.map((item, index) => {
+      const { renderButton } = this.props;
+      return (
+        <View
+          key={`key_${index}`}
+          style={styles.buttonContainer}
+        >
+          {this.props.renderButton(item)}
+        </View>
+      );
+    })
+  );
+
   render() {
-    const {
-      renderButton,
-      buttonsConfiguration,
-    } = this.props;
-    console.log('buttonsConfiguration: ', buttonsConfiguration);
+    const { buttonsConfiguration } = this.props;
+
     return (
       <View style={styles.container}>
-        <View style={styles.buttonContainer}>
-          {renderButton(buttonsConfiguration[0])}
-        </View>
-        <View style={styles.buttonContainer}>
-          {renderButton(buttonsConfiguration[1])}
-        </View>
-        <View style={styles.buttonContainer}>
-          {renderButton(buttonsConfiguration[2])}
-        </View>
-        <View style={styles.buttonContainer}>
-          {renderButton(buttonsConfiguration[3])}
-        </View>
-        <View style={styles.buttonContainer}>
-          {renderButton(buttonsConfiguration[4])}
-        </View>
+        {this.renderButtons(buttonsConfiguration)}
       </View>
     );
   }

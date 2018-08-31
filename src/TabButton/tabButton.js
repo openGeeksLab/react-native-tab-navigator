@@ -20,6 +20,7 @@ class TabButton extends Component {
         <Image
           style={imageStyle}
           source={imageSource}
+          resizeMode={'contain'}
         />
       );
     }
@@ -38,7 +39,10 @@ class TabButton extends Component {
 
     if (showTitle) {
       return (
-        <Text style={styles.titleText}>
+        <Text
+          numberOfLines={2}
+          style={styles.titleText}
+        >
           {title}
         </Text>
       );

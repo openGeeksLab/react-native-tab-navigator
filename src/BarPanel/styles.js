@@ -3,12 +3,13 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    height: 80,
+    height: 75,
     backgroundColor: '#faf8fa',
     borderTopColor: '#edecef',
     borderTopWidth: StyleSheet.hairlineWidth,
     flexDirection: 'row',
-    alignItems: 'center',
+    // alignItems: 'center',
+    justifyContent: 'space-around',
     paddingTop: 10,
   },
   buttonContainer: {
