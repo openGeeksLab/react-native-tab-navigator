@@ -8,6 +8,7 @@ import styles from './styles';
 class NavigatorView extends Component {
   render() {
     const {
+      navigate,
       buttonsConfiguration,
     } = this.props;
 
@@ -16,6 +17,7 @@ class NavigatorView extends Component {
         <View style={styles.screenContainer} />
         <View>
           <BarPanel
+            navigate={navigate}
             buttonsConfiguration={buttonsConfiguration}
           />
         </View>

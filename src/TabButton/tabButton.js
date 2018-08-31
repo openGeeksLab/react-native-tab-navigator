@@ -10,16 +10,29 @@ import styles from './styles';
 import Icons from '../TabIcons';
 
 class TabButton extends Component {
-  renderIconImage = (imageSource, imageCustomStyle) => {
-    if (imageSource) {
-      const imageStyle = imageCustomStyle
-        ? [styles.iconImage, imageCustomStyle]
-        : styles.iconImage;
+  renderIconImage = (buttonConfiguration) => {
+    const {
+      active,
+      tabIcon,
+      iconStyle,
+      activeTintColor,
+      inactiveTintColor,
+    } = buttonConfiguration;
+
+    if (tabIcon) {
+      const imageStyle = iconStyle
+        ? [styles.iconImage, iconStyle]
+        : [styles.iconImage];
+      if (active) {
+        imageStyle.push({ tintColor: activeTintColor });
+      } else {
+        imageStyle.push({ tintColor: inactiveTintColor });
+      }
 
       return (
         <Image
           style={imageStyle}
-          source={imageSource}
+          source={tabIcon}
           resizeMode={'contain'}
         />
       );
@@ -30,18 +43,41 @@ class TabButton extends Component {
   renderTitleText = (buttonConfig) => {
     const {
       title,
+      active,
       showTitle,
       activeTintColor,
       inactiveTintColor,
+      textStyle,
       textActiveStyle,
       textInactiveStyle,
     } = buttonConfig;
+
+    const titleTextStyle = textStyle
+      ? [styles.titleText, textStyle]
+      : [styles.titleText];
+
+    if (active) {
+      if (textActiveStyle) {
+        titleTextStyle.push(textActiveStyle);
+      }
+      if (activeTintColor) {
+        console.log('color: activeTintColor');
+        titleTextStyle.push({ color: activeTintColor });
+      }
+    } else {
+      if (textInactiveStyle) {
+        titleTextStyle.push(textInactiveStyle);
+      }
+      if (inactiveTintColor) {
+        titleTextStyle.push({ color: inactiveTintColor });
+      }
+    }
 
     if (showTitle) {
       return (
         <Text
           numberOfLines={2}
-          style={styles.titleText}
+          style={titleTextStyle}
         >
           {title}
         </Text>
@@ -52,18 +88,15 @@ class TabButton extends Component {
 
   render() {
     const {
+      active,
       onButtonPress,
       buttonConfiguration,
     } = this.props;
-    const {
-      tabIcon,
-      iconStyle,
-    } = buttonConfiguration;
 
     return (
       <TouchableOpacity style={styles.container}>
         <View style={styles.iconImageContianer}>
-          {this.renderIconImage(tabIcon, iconStyle)}
+          {this.renderIconImage(buttonConfiguration)}
         </View>
         <View style={styles.titleContainer}>
           {this.renderTitleText(buttonConfiguration)}

@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 
-import TabButton from '../TabButton';
-
 import styles from './styles';
 
 class BarPanel extends Component {
