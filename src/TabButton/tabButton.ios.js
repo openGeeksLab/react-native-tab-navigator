@@ -152,9 +152,11 @@ class TabButton extends Component {
   }
 
   renderAnimatedButton = (onButtonPress, buttonConfiguration) => (
+    <View style={styles.buttonIOSContainer}>
+      {this.renderRippleView(buttonConfiguration)}
       <TouchableOpacity
-        onPress={onButtonPress}
-        style={styles.container}
+        onPress={() => this.onPressedIn(onButtonPress)}
+        style={styles.touchableView}
       >
         <View style={styles.iconImageContianer}>
           {this.renderIconImage(buttonConfiguration)}
@@ -163,10 +165,11 @@ class TabButton extends Component {
           {this.renderTitleText(buttonConfiguration)}
         </View>
       </TouchableOpacity>
+    </View>
   )
 
   renderUnanimatedButton = (onButtonPress, buttonConfiguration) => (
-    <View style={{ flex: 1 }}>
+    <View style={styles.container}>
       <TouchableOpacity
         onPress={onButtonPress}
         style={styles.touchableView}
@@ -188,20 +191,9 @@ class TabButton extends Component {
     } = this.props;
 
     return (
-      <View style={styles.buttonIOSContainer}>
-          {this.renderRippleView(buttonConfiguration)}
-          <TouchableOpacity
-            onPress={() => this.onPressedIn(onPress)}
-            style={styles.touchableView}
-          >
-            <View style={styles.iconImageContianer}>
-              {this.renderIconImage(buttonConfiguration)}
-            </View>
-            <View style={styles.titleContainer}>
-              {this.renderTitleText(buttonConfiguration)}
-            </View>
-          </TouchableOpacity>
-      </View>
+      buttonConfiguration.animated
+        ? this.renderAnimatedButton(onPress, buttonConfiguration)
+        : this.renderUnanimatedButton(onPress, buttonConfiguration)
     );
   }
 }

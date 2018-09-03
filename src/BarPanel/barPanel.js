@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
-import {
-  Animated,
-  Easing,
-  View,
-} from 'react-native';
+import { View } from 'react-native';
 
 import styles from './styles';
 
