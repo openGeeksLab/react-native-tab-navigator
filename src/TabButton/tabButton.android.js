@@ -10,6 +10,18 @@ import {
 
 import styles from './styles';
 
+const animationDuration = 400;
+
+const borderInterpolationConfig = {
+  inputRange: [0, 1],
+  outputRange: [7, 0],
+};
+
+const viewScaleInterpolationConfig = {
+  inputRange: [0, 1],
+  outputRange: [0.1, 2],
+};
+
 class TabButton extends Component {
   constructor(props, context) {
     super(props, context);
@@ -18,49 +30,52 @@ class TabButton extends Component {
 
     this.state = {
       maxOpacity,
-      scaleValue: new Animated.Value(0.01),
-      borderScaleValue: new Animated.Value(0.01),
+      scaleValue: new Animated.Value(0),
+      borderScaleValue: new Animated.Value(0),
       opacityValue: new Animated.Value(maxOpacity),
     };
   }
 
   onPressedIn = (onPress) => {
-    Animated.timing(this.state.scaleValue, {
-      toValue: 1,
-      duration: 225,
-      easing: Easing.bezier(0.0, 0.0, 0.2, 4),
-    }).start(() => {
-      this.state.scaleValue.setValue(0.01);
+    Animated.parallel([
+      Animated.timing(this.state.scaleValue, {
+        toValue: 1,
+        duration: animationDuration,
+        easing: Easing.bezier(0.0, 0.0, 0.1, 1),
+        useNativeDriver: true,
+      }),
+      Animated.timing(this.state.borderScaleValue, {
+        toValue: 1,
+        duration: animationDuration,
+        useNativeDriver: true,
+      }),
+    ]).start(() => {
+      this.state.scaleValue.setValue(0);
+      this.state.borderScaleValue.setValue(0);
     });
+
     onPress();
   }
 
-  renderRippleView() {
-    const { scaleValue, opacityValue } = this.state;
-
-    // const rippleSize = size * 2;
-
+  renderRippleView(buttonConfig) {
+    const { scaleValue, borderScaleValue } = this.state;
+    const { activeTintColor } = buttonConfig;
     return (
-      <View style={{
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        backgroundColor: 'rgba(100, 100, 100, 0.3)',
-        // justifyContent: 'center',
-        alignItems: 'center',
-      }}>
+      <View style={styles.rippleViewContainer}>
         <Animated.View
-          style={{
-            marginTop: 10,
-            width: 30,
-            height: 30,
-            borderRadius: 15,
-            transform: [{ scale: scaleValue }],
-            opacity: opacityValue,
-            backgroundColor: 'black',
-          }}
+          style={[
+            styles.rippleViewAnimated,
+            { height: '100%', width: '100%', zIndex: 5 },
+            {
+              borderColor: activeTintColor,
+              backgroundColor: 'red',
+              borderRadius: 15,
+              // borderWidth: borderScaleValue.interpolate(borderInterpolationConfig),
+              transform: [{
+                scale: scaleValue.interpolate(viewScaleInterpolationConfig),
+              }],
+            },
+          ]}
         />
       </View>
     );
@@ -142,9 +157,11 @@ class TabButton extends Component {
   }
 
   renderAnimatedButton = (onButtonPress, buttonConfiguration) => (
+    <View style={styles.buttonIOSContainer}>
+      {this.renderRippleView(buttonConfiguration)}
       <TouchableOpacity
-        onPress={onButtonPress}
-        style={styles.container}
+        onPress={() => this.onPressedIn(onButtonPress)}
+        style={styles.touchableView}
       >
         <View style={styles.iconImageContianer}>
           {this.renderIconImage(buttonConfiguration)}
@@ -153,10 +170,11 @@ class TabButton extends Component {
           {this.renderTitleText(buttonConfiguration)}
         </View>
       </TouchableOpacity>
+    </View>
   )
 
   renderUnanimatedButton = (onButtonPress, buttonConfiguration) => (
-    <View style={{ flex: 1 }}>
+    <View style={styles.container}>
       <TouchableOpacity
         onPress={onButtonPress}
         style={styles.touchableView}
@@ -178,22 +196,9 @@ class TabButton extends Component {
     } = this.props;
 
     return (
-      <View style={{ margin: -40, height: 80, width: 80, flex: 0, alignItems: 'flex-start' }}>
-        <View>
-          {this.renderRippleView()}
-          <TouchableOpacity
-            onPress={() => this.onPressedIn(onPress)}
-            style={styles.touchableView}
-          >
-            <View style={styles.iconImageContianer}>
-              {this.renderIconImage(buttonConfiguration)}
-            </View>
-            <View style={styles.titleContainer}>
-              {this.renderTitleText(buttonConfiguration)}
-            </View>
-          </TouchableOpacity>
-        </View>
-      </View>
+      buttonConfiguration.animated
+        ? this.renderAnimatedButton(onPress, buttonConfiguration)
+        : this.renderUnanimatedButton(onPress, buttonConfiguration)
     );
   }
 }

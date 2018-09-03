@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
     height: '100%',
     backgroundColor: 'transparent',
     alignItems: 'center',
+    zIndex: 3,
   },
   rippleViewAnimated: {
     width: 30,
