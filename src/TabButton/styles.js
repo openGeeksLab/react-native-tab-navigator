@@ -25,12 +25,14 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     height: 28,
+    backgroundColor: 'transparent',
   },
   titleText: {
     fontSize: 10,
     lineHeight: 12,
     color: '#818692',
     textAlign: 'center',
+    backgroundColor: 'transparent',
   },
   rippleViewContainer: {
     position: 'absolute',

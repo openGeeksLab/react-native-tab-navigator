@@ -6,6 +6,7 @@ import TabButton from '../TabButton';
 // If title not specified title equal screen key by default
 const defaultScreenOptions = {
   showTitle: true,
+  animated: true,
   buttonView: TabButton,
   activeTintColor: '#0579fc',
   inactiveTintColor: '#818692',

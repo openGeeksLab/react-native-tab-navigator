@@ -28,7 +28,6 @@ const styles = StyleSheet.create({
     paddingTop: 10,
   },
   buttonContainer: {
-    // width: '20%',
     justifyContent: 'center',
     alignItems: 'center',
   },
