@@ -55,6 +55,10 @@ const styles = StyleSheet.create({
   buttonIOSContainer: {
     alignItems: 'flex-start',
   },
+  buttonAndroidContainer: {
+    alignItems: 'flex-start',
+    marginTop: 5,
+  },
 });
 
 export default styles;
