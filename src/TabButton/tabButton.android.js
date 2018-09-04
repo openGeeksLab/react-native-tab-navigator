@@ -26,13 +26,10 @@ class TabButton extends Component {
   constructor(props, context) {
     super(props, context);
 
-    const maxOpacity = 0.12;
-
     this.state = {
-      maxOpacity,
       scaleValue: new Animated.Value(0),
+      opacityValue: new Animated.Value(0),
       borderScaleValue: new Animated.Value(0),
-      opacityValue: new Animated.Value(maxOpacity),
     };
   }
 
@@ -42,34 +39,37 @@ class TabButton extends Component {
         toValue: 1,
         duration: animationDuration,
         easing: Easing.bezier(0.0, 0.0, 0.1, 1),
-        useNativeDriver: true,
       }),
       Animated.timing(this.state.borderScaleValue, {
         toValue: 1,
         duration: animationDuration,
-        useNativeDriver: true,
+      }),
+      Animated.timing(this.state.opacityValue, {
+        toValue: 0.7,
+        duration: animationDuration,
       }),
     ]).start(() => {
       this.state.scaleValue.setValue(0);
       this.state.borderScaleValue.setValue(0);
+      this.state.opacityValue.setValue(0);
     });
 
     onPress();
   }
 
   renderRippleView(buttonConfig) {
-    const { scaleValue, borderScaleValue } = this.state;
+    const { opacityValue, scaleValue, borderScaleValue } = this.state;
     const { activeTintColor } = buttonConfig;
     return (
       <View style={styles.rippleViewContainer}>
         <Animated.View
           style={[
             styles.rippleViewAnimated,
-            { height: '100%', width: '100%', zIndex: 5 },
+            { /*height: '100%', width: '100%',*/ zIndex: 5 },
             {
-              borderColor: activeTintColor,
               backgroundColor: 'red',
               borderRadius: 15,
+              // opacity: opacityValue,
               // borderWidth: borderScaleValue.interpolate(borderInterpolationConfig),
               transform: [{
                 scale: scaleValue.interpolate(viewScaleInterpolationConfig),

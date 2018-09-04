@@ -5,12 +5,14 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    zIndex: 4,
   },
   touchableView: {
     flex: 0,
     padding: 3,
     alignItems: 'center',
     justifyContent: 'center',
+    zIndex: 5,
   },
   iconImageContianer: {
     width: 30,
@@ -47,7 +49,6 @@ const styles = StyleSheet.create({
   rippleViewAnimated: {
     width: 30,
     height: 30,
-    opacity: 0.7,
     borderRadius: 15,
     backgroundColor: 'transparent',
   },

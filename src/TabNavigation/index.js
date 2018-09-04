@@ -3,7 +3,6 @@ import React from 'react';
 import NavigatorView from './navigatorView';
 import TabButton from '../TabButton';
 
-// If title not specified title equal screen key by default
 const defaultScreenOptions = {
   showTitle: true,
   animated: true,
@@ -11,11 +10,19 @@ const defaultScreenOptions = {
   activeTintColor: '#0579fc',
   inactiveTintColor: '#818692',
 
-  tabIcon: null, // source of icon image
-  iconStyle: null, // style of icon image
+  tabIcon: null,
+  iconStyle: null,
   textStyle: null,
   textActiveStyle: null,
   textInactiveStyle: null,
+
+  animation: [
+    'ripple',
+    // 'iconScale',
+    'rotationX',
+    // 'rotationY',
+    // 'rotationZ',
+  ],
 };
 
 const defaultNavigationConfig = {
@@ -44,6 +51,7 @@ function generateStateInitInformation(router, config) {
 
     return { ...screenOptions };
   });
+  console.log(buttonsArray);
   return buttonsArray;
 }
 
@@ -60,7 +68,14 @@ function navigateToScreen(screenName, currentState) {
 
 function createTabNavigator(router, navConfig) {
   const navigatorRouter = router;
-  const navigatorConfig = { ...defaultNavigationConfig, ...navConfig };
+  const navigatorConfig = {
+    ...defaultNavigationConfig,
+    ...navConfig,
+    screenOptions: {
+      ...defaultNavigationConfig.screenOptions,
+      ...navConfig.screenOptions,
+    },
+  };
   const routeState = generateStateInitInformation(navigatorRouter, navigatorConfig);
 
   class TabNavigation extends React.Component {
