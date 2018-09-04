@@ -17,9 +17,7 @@ const styles = StyleSheet.create({
         height: isIOSX ? 75 : 60,
       },
       android: {
-        height: 100,
-        marginTop: -40,
-        paddingTop: -40,
+        height: 60,
         zIndex: 2,
       },
     }),
