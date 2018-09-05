@@ -17,9 +17,17 @@ const defaultScreenOptions = {
   textInactiveStyle: null,
 
   animation: [
-    'ripple',
+    {
+      name: '',
+      type: 'bouncing',
+    },
+    {
+      name: '',
+      type: 'bouncing',
+    },
+    // 'ripple',
     // 'iconScale',
-    'rotationX',
+    // 'rotationX',
     // 'rotationY',
     // 'rotationZ',
   ],
@@ -51,7 +59,6 @@ function generateStateInitInformation(router, config) {
 
     return { ...screenOptions };
   });
-  console.log(buttonsArray);
   return buttonsArray;
 }
 

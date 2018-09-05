@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Platform } from 'react-native';
 
 import BarPanel from '../BarPanel'
 
@@ -15,12 +15,10 @@ class NavigatorView extends Component {
     return (
       <View style={styles.navigationContainer}>
         <View style={styles.screenContainer} />
-        <View>
-          <BarPanel
-            navigate={navigate}
-            buttonsConfiguration={buttonsConfiguration}
-          />
-        </View>
+        <BarPanel
+          navigate={navigate}
+          buttonsConfiguration={buttonsConfiguration}
+        />
       </View>
     );
   }

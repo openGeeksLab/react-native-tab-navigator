@@ -9,12 +9,13 @@ class BarPanelContainer extends Component {
     navigate(buttonConfig.key);
   }
 
-  renderButton = (buttonConfig) => {
+  renderButton = (buttonConfig, viewWidth) => {
     const { onButtonPress } = this.props;
     const TabButton = buttonConfig.buttonView;
 
     return (
       <TabButton
+        viewWidth={viewWidth}
         onPress={() => this.onButtonPress(buttonConfig)}
         buttonConfiguration={buttonConfig}
       />

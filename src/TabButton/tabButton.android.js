@@ -12,6 +12,11 @@ import styles from './styles';
 
 const animationDuration = 400;
 
+const borderInterpolationConfig = {
+  inputRange: [0, 1],
+  outputRange: [20, 0],
+};
+
 const opacityInterpolationConfig = {
   inputRange: [0, 1],
   outputRange: [0.0, 0.7],
@@ -19,7 +24,7 @@ const opacityInterpolationConfig = {
 
 const viewScaleInterpolationConfig = {
   inputRange: [0, 1],
-  outputRange: [0.1, 1.1],
+  outputRange: [0.1, 2],
 };
 
 const iconScaleInterpolatationConfiguration = {
@@ -32,43 +37,56 @@ const iconrotationInterpolationConfiguration = {
   outputRange: ['0deg', '360deg'],
 };
 
+const SPRING_CONFIG = { tension: 2, friction: 2 };
+
 class TabButton extends Component {
   constructor(props, context) {
     super(props, context);
 
     this.state = {
       animationValue: new Animated.Value(0),
+      rippleValue: new Animated.Value(0),
     };
   }
 
-  onPressedIn = (onPress) => {
+  onPressedIn = (onPress, animationType) => {
+    const animation = animationType === 'bouncing'
+      ? Animated.spring
+      : Animated.timing;
+
     Animated.parallel([
-      Animated.timing(this.state.animationValue, {
+      animation(this.state.animationValue, {
+        toValue: 1,
+        ...SPRING_CONFIG,
+        duration: animationDuration,
+        easing: Easing.bezier(0.0, 0.0, 0.1, 1),
+      }),
+      Animated.timing(this.state.rippleValue, {
         toValue: 1,
         duration: animationDuration,
         easing: Easing.bezier(0.0, 0.0, 0.1, 1),
       }),
     ]).start(() => {
       this.state.animationValue.setValue(0);
+      this.state.rippleValue.setValue(0);
     });
-
     onPress();
   }
 
   renderRippleView(buttonConfig) {
-    const { animationValue } = this.state;
+    const { rippleValue } = this.state;
     const { activeTintColor } = buttonConfig;
     return (
       <View style={styles.rippleViewContainer}>
         <Animated.View
           style={[
             styles.rippleViewAnimated,
-            { zIndex: 5 },
             {
-              backgroundColor: activeTintColor,
-              opacity: animationValue.interpolate(opacityInterpolationConfig),
+              borderWidth: rippleValue.interpolate(borderInterpolationConfig),
+              borderColor: activeTintColor,
+              opacity: rippleValue.interpolate(opacityInterpolationConfig),
               transform: [{
-                scale: animationValue.interpolate(viewScaleInterpolationConfig),
+                scale: rippleValue.interpolate(viewScaleInterpolationConfig),
               }],
             },
           ]}
@@ -155,9 +173,22 @@ class TabButton extends Component {
   renderAnimatedButton = (onButtonPress, buttonConfiguration) => {
     const { animationValue } = this.state;
     const { animation } = buttonConfiguration;
+    const { viewWidth } = this.props;
+
+    let animationType = 'timing';
 
     const transformationConfiguration = animation.map((animationItem) => {
-      switch (animationItem) {
+      const isObject = animationItem !== null && typeof animationItem === 'object';
+
+      if (isObject) {
+        animationType = animationItem.type;
+      }
+
+      const animationName = isObject
+        ? animationItem.name
+        : animationItem;
+
+      switch (animationName) {
         case 'scale':
           return { scale: animationValue.interpolate(iconScaleInterpolatationConfiguration) };
         case 'rotationX':
@@ -173,18 +204,33 @@ class TabButton extends Component {
     return (
       <View style={styles.buttonAndroidContainer}>
         {this.renderRippleView(buttonConfiguration)}
-        <TouchableOpacity
-          onPress={() => this.onPressedIn(onButtonPress)}
-          style={styles.touchableView}
+        <Animated.View
+          style={[
+            styles.iconImageContianer,
+            {
+              top: 50,
+              position: 'absolute',
+              left: (viewWidth - 30) / 2,
+            },
+            { transform: transformationConfiguration },
+          ]}
         >
-          <Animated.View
-            style={[
-              styles.iconImageContianer,
-              { transform: transformationConfiguration },
-            ]}
-          >
-            {this.renderIconImage(buttonConfiguration)}
-          </Animated.View>
+          {this.renderIconImage(buttonConfiguration)}
+        </Animated.View>
+        <TouchableOpacity
+          onPress={() => this.onPressedIn(onButtonPress, animationType)}
+          style={[
+            styles.touchableView,
+            {
+              top: 50,
+              height: 50,
+              position: 'absolute',
+              width: viewWidth / 1.2,
+              justifyContent: 'flex-end',
+              left: (viewWidth - (viewWidth / 1.2)) / 2,
+            },
+          ]}
+        >
           <View style={styles.titleContainer}>
             {this.renderTitleText(buttonConfiguration)}
           </View>

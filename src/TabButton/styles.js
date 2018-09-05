@@ -1,18 +1,16 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    zIndex: 4,
   },
   touchableView: {
     flex: 0,
     padding: 3,
     alignItems: 'center',
     justifyContent: 'center',
-    zIndex: 5,
   },
   iconImageContianer: {
     width: 30,
@@ -26,8 +24,7 @@ const styles = StyleSheet.create({
     height: 21,
   },
   titleContainer: {
-    height: 28,
-    backgroundColor: 'transparent',
+    height: 22,
   },
   titleText: {
     fontSize: 10,
@@ -37,20 +34,29 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   rippleViewContainer: {
+    ...Platform.select({
+      ios: {
+        height: '100%',
+      },
+      android: {
+        height: 150,
+        paddingTop: 60,
+      },
+    }),
     position: 'absolute',
     top: 0,
     left: 0,
     width: '100%',
-    height: '100%',
     backgroundColor: 'transparent',
     alignItems: 'center',
-    zIndex: 3,
+    justifyContent: 'flex-start',
   },
   rippleViewAnimated: {
     width: 30,
     height: 30,
     borderRadius: 15,
     backgroundColor: 'transparent',
+    alignItems: 'center',
   },
   buttonIOSContainer: {
     alignItems: 'flex-start',
@@ -58,6 +64,10 @@ const styles = StyleSheet.create({
   buttonAndroidContainer: {
     alignItems: 'flex-start',
     marginTop: 5,
+    width: '100%',
+    height: '100%',
+    justifyContent: 'flex-end',
+    paddingTop: 60,
   },
 });
 

@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 
 const styles = StyleSheet.create({
   navigationContainer: {
@@ -6,7 +6,16 @@ const styles = StyleSheet.create({
   },
   screenContainer: {
     flex: 1,
-    backgroundColor: 'rgb(255, 255, 255)',
+    // backgroundColor: 'rgb(255, 255, 255)',
+    backgroundColor: 'green',
+    ...Platform.select({
+      ios: {
+        marginBottom: 60,
+      },
+      android: {
+        marginBottom: 60,
+      },
+    }),
   },
 });
 

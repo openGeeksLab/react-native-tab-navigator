@@ -18,7 +18,6 @@ const styles = StyleSheet.create({
       },
       android: {
         height: 60,
-        zIndex: 2,
       },
     }),
     backgroundColor: '#faf8fa',
@@ -27,6 +26,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     paddingTop: 10,
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
   },
   buttonContainer: {
     justifyContent: 'center',

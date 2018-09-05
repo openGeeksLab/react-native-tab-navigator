@@ -6,12 +6,14 @@ class TabButtonContainer extends Component {
   render() {
     const {
       onPress,
+      viewWidth,
       buttonConfiguration,
     } = this.props;
 
     return (
       <TabButton
         onPress={onPress}
+        viewWidth={viewWidth}
         buttonConfiguration={buttonConfiguration}
       />
     );
