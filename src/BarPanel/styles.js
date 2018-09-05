@@ -34,6 +34,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  animatedButtonContainer: {
+    position: 'absolute',
+    bottom: 0,
+    height: 100,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
 });
 
 export default styles;

@@ -8,7 +8,7 @@ const buttonAnimatedViewWidth = buttonsArrayLength => width / buttonsArrayLength
 
 class BarPanel extends Component {
   renderButtons = (buttonsConfiguration) => {
-    let viewWidth = buttonAnimatedViewWidth(buttonsConfiguration.length);
+    const viewWidth = buttonAnimatedViewWidth(buttonsConfiguration.length);
     let isAnimated = false;
     const buttonsArray = buttonsConfiguration.map((item, index) => {
       const { renderButton } = this.props;
@@ -17,19 +17,15 @@ class BarPanel extends Component {
         return (
           <View
             key={`key_${index}`}
-            style={{
-              position: 'absolute',
-              bottom: 0,
-              left: index * viewWidth,
-              height: 100,
-              width: viewWidth,
-              // backgroundColor: 'rgba(0, 0, 0, 0.3)',
-              // borderLeftWidth: 1,
-              justifyContent: 'flex-end',
-              alignItems: 'center',
-            }}
+            style={[
+              styles.animatedButtonContainer,
+              {
+                left: index * viewWidth,
+                width: viewWidth,
+              },
+            ]}
           >
-            {this.props.renderButton(item, viewWidth)}
+            {renderButton(item, viewWidth)}
           </View>
         );
       }
@@ -38,13 +34,12 @@ class BarPanel extends Component {
           key={`key_${index}`}
           style={styles.buttonContainer}
         >
-          {this.props.renderButton(item)}
+          {renderButton(item)}
         </View>
       );
     });
 
     if (isAnimated) {
-      // console.warn('animated')
       return (buttonsArray);
     }
 

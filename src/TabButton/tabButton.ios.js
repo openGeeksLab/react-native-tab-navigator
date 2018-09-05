@@ -37,6 +37,11 @@ const iconrotationInterpolationConfiguration = {
   outputRange: ['0deg', '360deg'],
 };
 
+const iconTranslationInterpolationConfig = {
+  inputRange: [0, 1],
+  outputRange: [0, -60],
+};
+
 const SPRING_CONFIG = { tension: 2, friction: 2 };
 
 class TabButton extends Component {
@@ -58,7 +63,7 @@ class TabButton extends Component {
         toValue: 1,
         ...SPRING_CONFIG,
         duration: animationDuration,
-        easing: Easing.bezier(0.0, 0.0, 0.1, 1),
+        // easing: Easing.bezier(0.0, 0.0, 0.1, 1),
       }),
       Animated.timing(this.state.rippleValue, {
         toValue: 1,
@@ -198,10 +203,12 @@ class TabButton extends Component {
           return { rotateY: animationValue.interpolate(iconrotationInterpolationConfiguration) };
         case 'rotationZ':
           return { rotateZ: animationValue.interpolate(iconrotationInterpolationConfiguration) };
+        case 'fumeIcon':
+          return { translateY: animationValue.interpolate(iconTranslationInterpolationConfig) };
         default: return { translateX: 0 };
       }
     });
-    // console.warn(animationType);
+
     return (
       <View style={styles.buttonIOSContainer}>
         {this.renderRippleView(buttonConfiguration)}
