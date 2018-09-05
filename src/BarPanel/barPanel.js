@@ -25,6 +25,7 @@ class BarPanel extends Component {
               },
             ]}
           >
+            <View style={styles.fakePanelcontainer} />
             {renderButton(item, viewWidth)}
           </View>
         );

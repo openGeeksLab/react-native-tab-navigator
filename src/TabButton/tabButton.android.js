@@ -211,8 +211,8 @@ class TabButton extends Component {
               top: 50,
               position: 'absolute',
               left: (viewWidth - 30) / 2,
+              transform: transformationConfiguration,
             },
-            { transform: transformationConfiguration },
           ]}
         >
           {this.renderIconImage(buttonConfiguration)}
@@ -221,12 +221,9 @@ class TabButton extends Component {
           onPress={() => this.onPressedIn(onButtonPress, animationType)}
           style={[
             styles.touchableView,
+            styles.touchableAnimatedView,
             {
-              top: 50,
-              height: 50,
-              position: 'absolute',
               width: viewWidth / 1.2,
-              justifyContent: 'flex-end',
               left: (viewWidth - (viewWidth / 1.2)) / 2,
             },
           ]}

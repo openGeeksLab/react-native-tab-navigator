@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     borderTopWidth: StyleSheet.hairlineWidth,
     flexDirection: 'row',
     justifyContent: 'space-around',
-    paddingTop: 10,
+    paddingTop: 5,
     position: 'absolute',
     bottom: 0,
     left: 0,
@@ -40,6 +40,16 @@ const styles = StyleSheet.create({
     height: 100,
     justifyContent: 'flex-end',
     alignItems: 'center',
+  },
+  fakePanelcontainer: {
+    position: 'absolute',
+    left: 0,
+    bottom: 0,
+    width: '100%',
+    height: 60,
+    backgroundColor: '#faf8fa',
+    borderTopColor: '#edecef',
+    borderTopWidth: StyleSheet.hairlineWidth,
   },
 });
 

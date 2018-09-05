@@ -6,8 +6,7 @@ const styles = StyleSheet.create({
   },
   screenContainer: {
     flex: 1,
-    // backgroundColor: 'rgb(255, 255, 255)',
-    backgroundColor: 'green',
+    backgroundColor: 'rgb(255, 255, 255)',
     ...Platform.select({
       ios: {
         marginBottom: 60,

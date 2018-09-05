@@ -69,6 +69,12 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     paddingTop: 60,
   },
+  touchableAnimatedView: {
+    top: 50,
+    height: 50,
+    position: 'absolute',
+    justifyContent: 'flex-end',
+  },
 });
 
 export default styles;
