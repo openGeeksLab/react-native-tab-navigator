@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
       },
       android: {
         height: 150,
-        paddingTop: 60,
+        paddingTop: 48,
       },
     }),
     position: 'absolute',
