@@ -29,50 +29,24 @@ const viewScaleInterpolationConfig = {
   outputRange: [0.1, 2],
 };
 
-const iconScaleInterpolatationConfiguration = {
-  inputRange: [0, 0.7, 1],
-  outputRange: [1, 1.5, 1],
-};
-
-const iconrotationInterpolationConfiguration = {
-  inputRange: [0, 1],
-  outputRange: ['0deg', '360deg'],
-};
-
-const iconTranslationInterpolationConfig = {
-  inputRange: [0, 1],
-  outputRange: [0, 5],
-};
-
-const iconTranslationOutInterpolationConfig = {
-  inputRange: [0, 0.3, 1],
-  outputRange: [0, 15, -50],
-};
-
-const SPRING_CONFIG = { tension: 2, friction: 2 };
-
 class TabButton extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      animationValue: new Animated.Value(0),
       rippleValue: new Animated.Value(0),
-      fumeAnimation: new Animated.Value(0),
-      // fumeOutAnimation: new Animated.Value(0),
     };
 
     this.n = new TabAnimations(this.props.buttonConfiguration.animation);
+    this.animationStyle = this.n.getAnimatedStyle();
   }
 
   onPressedIn = (onPress) => {
     this.n.callAnimations();
-    Animated.parallel([
-      Animated.timing(this.state.rippleValue, {
-        toValue: 1,
-        duration: animationDuration,
-        easing: Easing.bezier(0.0, 0.0, 0.1, 1),
-      }),
-    ]).start(() => {
+    Animated.timing(this.state.rippleValue, {
+      toValue: 1,
+      duration: animationDuration,
+      easing: Easing.bezier(0.0, 0.0, 0.1, 1),
+    }).start(() => {
       this.state.rippleValue.setValue(0);
     });
     onPress();
@@ -178,13 +152,7 @@ class TabButton extends Component {
     return null;
   }
 
-  renderAnimatedButton = (onButtonPress, buttonConfiguration) => {
-    const { animationValue } = this.state;
-    const { animation } = buttonConfiguration;
-
-    const animatedStyle = this.n.getAnimatedStyle();
-
-    return (
+  renderAnimatedButton = (onButtonPress, buttonConfiguration) => (
       <View style={styles.buttonIOSContainer}>
         {this.renderRippleView(buttonConfiguration)}
         <TouchableOpacity
@@ -194,8 +162,7 @@ class TabButton extends Component {
           <Animated.View
             style={[
               styles.iconImageContianer,
-              // { transform: transformationConfiguration },
-              animatedStyle,
+              this.animationStyle,
             ]}
           >
             {this.renderIconImage(buttonConfiguration)}
@@ -205,8 +172,7 @@ class TabButton extends Component {
           </View>
         </TouchableOpacity>
       </View>
-    );
-  }
+  )
 
   renderUnanimatedButton = (onButtonPress, buttonConfiguration) => (
     <View style={styles.container}>
@@ -225,11 +191,7 @@ class TabButton extends Component {
   )
 
   render() {
-    const {
-      onPress,
-      buttonConfiguration,
-    } = this.props;
-
+    const { buttonConfiguration, onPress } = this.props;
     return (
       buttonConfiguration.animated
         ? this.renderAnimatedButton(onPress, buttonConfiguration)

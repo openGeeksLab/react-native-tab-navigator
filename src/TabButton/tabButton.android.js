@@ -29,40 +29,25 @@ const viewScaleInterpolationConfig = {
   outputRange: [0.1, 2],
 };
 
-const iconScaleInterpolatationConfiguration = {
-  inputRange: [0, 0.7, 1],
-  outputRange: [1, 1.5, 1],
-};
-
-const iconrotationInterpolationConfiguration = {
-  inputRange: [0, 1],
-  outputRange: ['0deg', '360deg'],
-};
-
-const SPRING_CONFIG = { tension: 2, friction: 2 };
-
 class TabButton extends Component {
   constructor(props, context) {
     super(props, context);
 
     this.state = {
-      animationValue: new Animated.Value(0),
       rippleValue: new Animated.Value(0),
     };
 
     this.n = new TabAnimations(this.props.buttonConfiguration.animation);
+    this.animationStyle = this.n.getAnimatedStyle();
   }
 
   onPressedIn = (onPress) => {
     this.n.callAnimations();
-    Animated.parallel([
-      Animated.timing(this.state.rippleValue, {
-        toValue: 1,
-        duration: animationDuration,
-        easing: Easing.bezier(0.0, 0.0, 0.1, 1),
-      }),
-    ]).start(() => {
-      this.state.animationValue.setValue(0);
+    Animated.timing(this.state.rippleValue, {
+      toValue: 1,
+      duration: animationDuration,
+      easing: Easing.bezier(0.0, 0.0, 0.1, 1),
+    }).start(() => {
       this.state.rippleValue.setValue(0);
     });
     onPress();
@@ -166,9 +151,7 @@ class TabButton extends Component {
   }
 
   renderAnimatedButton = (onButtonPress, buttonConfiguration) => {
-    const { animation } = buttonConfiguration;
     const { viewWidth } = this.props;
-    const animatedStyle = this.n.getAnimatedStyle();
     return (
       <View style={styles.buttonAndroidContainer}>
         {this.renderRippleView(buttonConfiguration)}
@@ -179,7 +162,7 @@ class TabButton extends Component {
               top: 50,
               position: 'absolute',
               left: (viewWidth - 30) / 2,
-              ...animatedStyle,
+              ...this.animationStyle,
             },
           ]}
         >
@@ -221,11 +204,7 @@ class TabButton extends Component {
   )
 
   render() {
-    const {
-      onPress,
-      buttonConfiguration,
-    } = this.props;
-
+    const { buttonConfiguration, onPress } = this.props;
     return (
       buttonConfiguration.animated
         ? this.renderAnimatedButton(onPress, buttonConfiguration)

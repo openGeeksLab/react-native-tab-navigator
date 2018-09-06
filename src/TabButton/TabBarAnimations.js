@@ -34,8 +34,6 @@ class TabBarAnimations {
       animatedValue: new Animated.Value(0),
     };
 
-
-
     this.animations = animationsArray.map((animationItem) => {
       const isObject = animationItem !== null && typeof animationItem === 'object';
       let animationType = 'timing';
