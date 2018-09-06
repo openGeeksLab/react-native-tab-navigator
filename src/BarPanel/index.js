@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import BarPanel from './barPanel';
 
 class BarPanelContainer extends Component {
-
   onButtonPress = (buttonConfig) => {
     const { navigate } = this.props;
     navigate(buttonConfig.key);

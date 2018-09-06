@@ -10,6 +10,8 @@ import {
 
 import styles from './styles';
 
+import TabAnimations from './TabBarAnimations';
+
 const animationDuration = 400;
 
 const borderInterpolationConfig = {
@@ -38,8 +40,8 @@ const iconrotationInterpolationConfiguration = {
 };
 
 const iconTranslationInterpolationConfig = {
-  inputRange: [0, 1],
-  outputRange: [0, -60],
+  inputRange: [0, 0.5, 1],
+  outputRange: [0, 10, -20],
 };
 
 const SPRING_CONFIG = { tension: 2, friction: 2 };
@@ -51,6 +53,12 @@ class TabButton extends Component {
       animationValue: new Animated.Value(0),
       rippleValue: new Animated.Value(0),
     };
+    this.animations = {
+      animationValue: new Animated.Value(0),
+      rippleValue: new Animated.Value(0),
+    };
+
+    const n = new TabAnimations(this.props.buttonConfiguration.animation);
   }
 
   onPressedIn = (onPress, animationType) => {
@@ -59,7 +67,7 @@ class TabButton extends Component {
       : Animated.timing;
 
     Animated.parallel([
-      animation(this.state.animationValue, {
+      animation(this.animations.animationValue, {
         toValue: 1,
         ...SPRING_CONFIG,
         duration: animationDuration,
@@ -71,7 +79,7 @@ class TabButton extends Component {
         easing: Easing.bezier(0.0, 0.0, 0.1, 1),
       }),
     ]).start(() => {
-      this.state.animationValue.setValue(0);
+      this.animations.animationValue.setValue(0);
       this.state.rippleValue.setValue(0);
     });
     onPress();
@@ -196,15 +204,15 @@ class TabButton extends Component {
 
       switch (animationName) {
         case 'scale':
-          return { scale: animationValue.interpolate(iconScaleInterpolatationConfiguration) };
+          return { scale: this.animations.animationValue.interpolate(iconScaleInterpolatationConfiguration) };
         case 'rotationX':
-          return { rotateX: animationValue.interpolate(iconrotationInterpolationConfiguration) };
+          return { rotateX: this.animations.animationValue.interpolate(iconrotationInterpolationConfiguration) };
         case 'rotationY':
-          return { rotateY: animationValue.interpolate(iconrotationInterpolationConfiguration) };
+          return { rotateY: this.animations.animationValue.interpolate(iconrotationInterpolationConfiguration) };
         case 'rotationZ':
-          return { rotateZ: animationValue.interpolate(iconrotationInterpolationConfiguration) };
-        case 'fumeIcon':
-          return { translateY: animationValue.interpolate(iconTranslationInterpolationConfig) };
+          return { rotateZ: this.animations.animationValue.interpolate(iconrotationInterpolationConfiguration) };
+        case 'fume':
+          return { translateY: this.animations.animationValue.interpolate(iconTranslationInterpolationConfig) };
         default: return { translateX: 0 };
       }
     });
