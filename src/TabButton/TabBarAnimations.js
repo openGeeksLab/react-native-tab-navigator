@@ -7,9 +7,9 @@ const borderWidthInterpolation = {
   outputRange: [20, 0],
 };
 
-const opacityInterpolation = {
-  inputRange: [0, 0.1, 1],
-  outputRange: [0, 0.3, 0.7],
+const fadeOutInterpolation = {
+  inputRange: [0, 1],
+  outputRange: [1, 0],
 };
 
 const scaleInterpolatation = {
@@ -23,8 +23,8 @@ const rotationInterpolation = {
 };
 
 const translationInterpolation = {
-  inputRange: [0, 0.5, 1],
-  outputRange: [0, 10, -20],
+  inputRange: [0, 0.3, 1],
+  outputRange: [0, 15, -50],
 };
 
 // const SPRING_CONFIG = { tension: 2, friction: 2 };
@@ -36,17 +36,21 @@ class TabBarAnimations {
       animatedValue: new Animated.Value(0),
     };
 
-    let animationType = 'timing';
 
     this.animations = animationsArray.map((animationItem) => {
       const isObject = animationItem !== null && typeof animationItem === 'object';
+      let animationType = 'timing';
+      let animationDuration = 400;
+
       if (isObject) {
         animationType = animationItem.type === 'bouncing' ? animationItem.type : 'timing';
+        animationDuration = !Number.isNaN(animationItem.duration) ? animationItem.duration : 400;
       }
       const animationName = isObject ? animationItem.name : animationItem;
 
       const animationInformaion = {
         type: animationType,
+        duration: animationDuration,
       };
 
       switch (animationName) {
@@ -75,7 +79,11 @@ class TabBarAnimations {
             translateY: this.animations.animatedValue.interpolate(translationInterpolation),
           };
           break;
-
+        case 'fadeOut':
+          animationInformaion.style = {
+            opacity: this.animations.animatedValue.interpolate(fadeOutInterpolation),
+          };
+          break;
         default:
           animationInformaion.interpolation = { translateX: 0 };
           break;
@@ -86,7 +94,21 @@ class TabBarAnimations {
   }
 
   getAnimatedStyle() {
-    return this.animatedStyle;
+    let resultStyle = {};
+    const interpolation = [];
+    for (let i = 0; i < this.animations.length; i++) {
+      const animation = this.animations[i];
+      if (animation.interpolation) {
+        interpolation.push(animation.interpolation);
+      } else {
+        resultStyle = {
+          ...resultStyle,
+          ...animation.style,
+        };
+      }
+      resultStyle.interpolation = interpolation;
+    }
+    return resultStyle;
   }
 
   getAnimations() {

@@ -40,8 +40,13 @@ const iconrotationInterpolationConfiguration = {
 };
 
 const iconTranslationInterpolationConfig = {
-  inputRange: [0, 0.5, 1],
-  outputRange: [0, 10, -20],
+  inputRange: [0, 1],
+  outputRange: [0, 5],
+};
+
+const iconTranslationOutInterpolationConfig = {
+  inputRange: [0, 0.3, 1],
+  outputRange: [0, 15, -50],
 };
 
 const SPRING_CONFIG = { tension: 2, friction: 2 };
@@ -52,13 +57,18 @@ class TabButton extends Component {
     this.state = {
       animationValue: new Animated.Value(0),
       rippleValue: new Animated.Value(0),
+      fumeAnimation: new Animated.Value(0),
+      // fumeOutAnimation: new Animated.Value(0),
     };
     this.animations = {
       animationValue: new Animated.Value(0),
       rippleValue: new Animated.Value(0),
+      fumeInAnimation: new Animated.Value(0),
+      fumeOutAnimation: new Animated.Value(0),
     };
 
     const n = new TabAnimations(this.props.buttonConfiguration.animation);
+    console.log('generated styles: ', n.getAnimatedStyle());
   }
 
   onPressedIn = (onPress, animationType) => {
@@ -212,7 +222,7 @@ class TabButton extends Component {
         case 'rotationZ':
           return { rotateZ: this.animations.animationValue.interpolate(iconrotationInterpolationConfiguration) };
         case 'fume':
-          return { translateY: this.animations.animationValue.interpolate(iconTranslationInterpolationConfig) };
+          return { translateY: this.animations.animationValue.interpolate(iconTranslationOutInterpolationConfig) };
         default: return { translateX: 0 };
       }
     });
