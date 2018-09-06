@@ -1,7 +1,5 @@
 import { Animated } from 'react-native';
 
-const animationDuration = 400;
-
 const borderWidthInterpolation = {
   inputRange: [0, 1],
   outputRange: [20, 0],
@@ -24,10 +22,10 @@ const rotationInterpolation = {
 
 const translationInterpolation = {
   inputRange: [0, 0.3, 1],
-  outputRange: [0, 15, -50],
+  outputRange: [0, 15, -90],
 };
 
-// const SPRING_CONFIG = { tension: 2, friction: 2 };
+const SPRING_CONFIG = { tension: 2, friction: 2 };
 
 class TabBarAnimations {
   constructor(animationsArray) {
@@ -35,6 +33,7 @@ class TabBarAnimations {
     this.animations = {
       animatedValue: new Animated.Value(0),
     };
+
 
 
     this.animations = animationsArray.map((animationItem) => {
@@ -51,37 +50,38 @@ class TabBarAnimations {
       const animationInformaion = {
         type: animationType,
         duration: animationDuration,
+        animation: new Animated.Value(0),
       };
 
       switch (animationName) {
         case 'scale':
           animationInformaion.interpolation = {
-            scale: this.animations.animatedValue.interpolate(scaleInterpolatation),
+            scale: animationInformaion.animation.interpolate(scaleInterpolatation),
           };
           break;
         case 'rotationX':
           animationInformaion.interpolation = {
-            rotateX: this.animations.animatedValue.interpolate(rotationInterpolation),
+            rotateX: animationInformaion.animation.interpolate(rotationInterpolation),
           };
           break;
         case 'rotationY':
           animationInformaion.interpolation = {
-            rotateY: this.animations.animatedValue.interpolate(rotationInterpolation),
+            rotateY: animationInformaion.animation.interpolate(rotationInterpolation),
           };
           break;
         case 'rotationZ':
           animationInformaion.interpolation = {
-            rotateZ: this.animations.animatedValue.interpolate(rotationInterpolation),
+            rotateZ: animationInformaion.animation.interpolate(rotationInterpolation),
           };
           break;
         case 'fume':
           animationInformaion.interpolation = {
-            translateY: this.animations.animatedValue.interpolate(translationInterpolation),
+            translateY: animationInformaion.animation.interpolate(translationInterpolation),
           };
           break;
         case 'fadeOut':
           animationInformaion.style = {
-            opacity: this.animations.animatedValue.interpolate(fadeOutInterpolation),
+            opacity: animationInformaion.animation.interpolate(fadeOutInterpolation),
           };
           break;
         default:
@@ -90,7 +90,6 @@ class TabBarAnimations {
       }
       return animationInformaion;
     });
-    console.log('this.animations: ', this.animations);
   }
 
   getAnimatedStyle() {
@@ -106,13 +105,45 @@ class TabBarAnimations {
           ...animation.style,
         };
       }
-      resultStyle.interpolation = interpolation;
+      resultStyle.transform = interpolation;
     }
     return resultStyle;
   }
 
   getAnimations() {
-    return this.animations;
+    return this.animations.map((item) => {
+      if (item.type === 'bouncing') {
+        return Animated.spring(
+          item.animation,
+          {
+            toValue: 1,
+            ...SPRING_CONFIG,
+          },
+        );
+      }
+      return Animated.timing(
+        item.animation,
+        {
+          toValue: 1,
+          duration: item.duration,
+        },
+      );
+    });
+  }
+
+  resetAnimations() {
+    return this.animations.map((item) => {
+      item.animation.setValue(0);
+      return item;
+    });
+  }
+
+  callAnimations() {
+    Animated.parallel([
+      ...this.getAnimations(),
+    ]).start(() => {
+      this.resetAnimations();
+    });
   }
 }
 

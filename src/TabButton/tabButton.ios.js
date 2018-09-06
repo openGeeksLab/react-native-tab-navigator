@@ -60,36 +60,19 @@ class TabButton extends Component {
       fumeAnimation: new Animated.Value(0),
       // fumeOutAnimation: new Animated.Value(0),
     };
-    this.animations = {
-      animationValue: new Animated.Value(0),
-      rippleValue: new Animated.Value(0),
-      fumeInAnimation: new Animated.Value(0),
-      fumeOutAnimation: new Animated.Value(0),
-    };
 
-    const n = new TabAnimations(this.props.buttonConfiguration.animation);
-    console.log('generated styles: ', n.getAnimatedStyle());
+    this.n = new TabAnimations(this.props.buttonConfiguration.animation);
   }
 
-  onPressedIn = (onPress, animationType) => {
-    const animation = animationType === 'bouncing'
-      ? Animated.spring
-      : Animated.timing;
-
+  onPressedIn = (onPress) => {
+    this.n.callAnimations();
     Animated.parallel([
-      animation(this.animations.animationValue, {
-        toValue: 1,
-        ...SPRING_CONFIG,
-        duration: animationDuration,
-        // easing: Easing.bezier(0.0, 0.0, 0.1, 1),
-      }),
       Animated.timing(this.state.rippleValue, {
         toValue: 1,
         duration: animationDuration,
         easing: Easing.bezier(0.0, 0.0, 0.1, 1),
       }),
     ]).start(() => {
-      this.animations.animationValue.setValue(0);
       this.state.rippleValue.setValue(0);
     });
     onPress();
@@ -199,45 +182,20 @@ class TabButton extends Component {
     const { animationValue } = this.state;
     const { animation } = buttonConfiguration;
 
-    let animationType = 'timing';
-
-    const transformationConfiguration = animation.map((animationItem) => {
-      const isObject = animationItem !== null && typeof animationItem === 'object';
-
-      if (isObject) {
-        animationType = animationItem.type;
-      }
-
-      const animationName = isObject
-        ? animationItem.name
-        : animationItem;
-
-      switch (animationName) {
-        case 'scale':
-          return { scale: this.animations.animationValue.interpolate(iconScaleInterpolatationConfiguration) };
-        case 'rotationX':
-          return { rotateX: this.animations.animationValue.interpolate(iconrotationInterpolationConfiguration) };
-        case 'rotationY':
-          return { rotateY: this.animations.animationValue.interpolate(iconrotationInterpolationConfiguration) };
-        case 'rotationZ':
-          return { rotateZ: this.animations.animationValue.interpolate(iconrotationInterpolationConfiguration) };
-        case 'fume':
-          return { translateY: this.animations.animationValue.interpolate(iconTranslationOutInterpolationConfig) };
-        default: return { translateX: 0 };
-      }
-    });
+    const animatedStyle = this.n.getAnimatedStyle();
 
     return (
       <View style={styles.buttonIOSContainer}>
         {this.renderRippleView(buttonConfiguration)}
         <TouchableOpacity
-          onPress={() => this.onPressedIn(onButtonPress, animationType)}
+          onPress={() => this.onPressedIn(onButtonPress, null)}
           style={styles.touchableView}
         >
           <Animated.View
             style={[
               styles.iconImageContianer,
-              { transform: transformationConfiguration },
+              // { transform: transformationConfiguration },
+              animatedStyle,
             ]}
           >
             {this.renderIconImage(buttonConfiguration)}

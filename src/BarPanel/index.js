@@ -5,6 +5,9 @@ import BarPanel from './barPanel';
 class BarPanelContainer extends Component {
   onButtonPress = (buttonConfig) => {
     const { navigate } = this.props;
+    if(buttonConfig.__debugOnPress) {
+      buttonConfig.__debugOnPress();
+    }
     navigate(buttonConfig.key);
   }
 

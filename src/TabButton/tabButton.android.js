@@ -10,6 +10,8 @@ import {
 
 import styles from './styles';
 
+import TabAnimations from './TabBarAnimations';
+
 const animationDuration = 400;
 
 const borderInterpolationConfig = {
@@ -47,20 +49,13 @@ class TabButton extends Component {
       animationValue: new Animated.Value(0),
       rippleValue: new Animated.Value(0),
     };
+
+    this.n = new TabAnimations(this.props.buttonConfiguration.animation);
   }
 
-  onPressedIn = (onPress, animationType) => {
-    const animation = animationType === 'bouncing'
-      ? Animated.spring
-      : Animated.timing;
-
+  onPressedIn = (onPress) => {
+    this.n.callAnimations();
     Animated.parallel([
-      animation(this.state.animationValue, {
-        toValue: 1,
-        ...SPRING_CONFIG,
-        duration: animationDuration,
-        easing: Easing.bezier(0.0, 0.0, 0.1, 1),
-      }),
       Animated.timing(this.state.rippleValue, {
         toValue: 1,
         duration: animationDuration,
@@ -171,36 +166,9 @@ class TabButton extends Component {
   }
 
   renderAnimatedButton = (onButtonPress, buttonConfiguration) => {
-    const { animationValue } = this.state;
     const { animation } = buttonConfiguration;
     const { viewWidth } = this.props;
-
-    let animationType = 'timing';
-
-    const transformationConfiguration = animation.map((animationItem) => {
-      const isObject = animationItem !== null && typeof animationItem === 'object';
-
-      if (isObject) {
-        animationType = animationItem.type;
-      }
-
-      const animationName = isObject
-        ? animationItem.name
-        : animationItem;
-
-      switch (animationName) {
-        case 'scale':
-          return { scale: animationValue.interpolate(iconScaleInterpolatationConfiguration) };
-        case 'rotationX':
-          return { rotateX: animationValue.interpolate(iconrotationInterpolationConfiguration) };
-        case 'rotationY':
-          return { rotateY: animationValue.interpolate(iconrotationInterpolationConfiguration) };
-        case 'rotationZ':
-          return { rotateZ: animationValue.interpolate(iconrotationInterpolationConfiguration) };
-        default: return { translateX: 0 };
-      }
-    });
-
+    const animatedStyle = this.n.getAnimatedStyle();
     return (
       <View style={styles.buttonAndroidContainer}>
         {this.renderRippleView(buttonConfiguration)}
@@ -211,14 +179,14 @@ class TabButton extends Component {
               top: 50,
               position: 'absolute',
               left: (viewWidth - 30) / 2,
-              transform: transformationConfiguration,
+              ...animatedStyle,
             },
           ]}
         >
           {this.renderIconImage(buttonConfiguration)}
         </Animated.View>
         <TouchableOpacity
-          onPress={() => this.onPressedIn(onButtonPress, animationType)}
+          onPress={() => this.onPressedIn(onButtonPress)}
           style={[
             styles.touchableView,
             styles.touchableAnimatedView,
