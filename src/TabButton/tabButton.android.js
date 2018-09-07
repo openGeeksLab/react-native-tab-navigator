@@ -50,6 +50,10 @@ class TabButton extends Component {
     }).start(() => {
       this.state.rippleValue.setValue(0);
     });
+
+    if (this.refs.image_ref) {
+      this.refs.image_ref.callAnimations();
+    }
     onPress();
   }
 
