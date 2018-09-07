@@ -85,6 +85,9 @@ class TabButton extends Component {
     } = buttonConfiguration;
 
     if (tabIcon) {
+      if (typeof tabIcon === 'function') {
+        return React.createElement(tabIcon, { ...buttonConfiguration, ref: 'image_ref' });
+      }
       const imageStyle = iconStyle
         ? [styles.iconImage, iconStyle]
         : [styles.iconImage];

@@ -11,6 +11,7 @@ import {
 import styles from './styles';
 
 import TabAnimations from './TabBarAnimations';
+import TabIcons from '../TabIcons';
 
 const animationDuration = 400;
 
@@ -49,6 +50,10 @@ class TabButton extends Component {
     }).start(() => {
       this.state.rippleValue.setValue(0);
     });
+
+    if (this.refs.image_ref) {
+      this.refs.image_ref.callAnimations();
+    }
     onPress();
   }
 
@@ -87,6 +92,9 @@ class TabButton extends Component {
     } = buttonConfiguration;
 
     if (tabIcon) {
+      if (typeof tabIcon === 'function') {
+        return React.createElement(tabIcon, { ...buttonConfiguration, ref: 'image_ref' });
+      }
       const imageStyle = iconStyle
         ? [styles.iconImage, iconStyle]
         : [styles.iconImage];
