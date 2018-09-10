@@ -1,10 +1,5 @@
 import { Animated } from 'react-native';
 
-const borderWidthInterpolation = {
-  inputRange: [0, 1],
-  outputRange: [20, 0],
-};
-
 const fadeOutInterpolation = {
   inputRange: [0, 1],
   outputRange: [1, 0],
@@ -23,6 +18,11 @@ const rotationInterpolation = {
 const translationInterpolation = {
   inputRange: [0, 0.3, 1],
   outputRange: [0, 15, -90],
+};
+
+const pendulumInterpolation = {
+  inputRange: [0, 0.20, 0.40, 0.60, 0.80, 1],
+  outputRange: ['0deg', '60deg', '-60deg', '30deg', '-30deg', '0deg'],
 };
 
 const SPRING_CONFIG = { tension: 2, friction: 2 };
@@ -60,6 +60,11 @@ class TabBarAnimations {
         case 'rotationX':
           animationInformaion.interpolation = {
             rotateX: animationInformaion.animation.interpolate(rotationInterpolation),
+          };
+          break;
+        case 'pendulum':
+          animationInformaion.interpolation = {
+            rotateZ: animationInformaion.animation.interpolate(pendulumInterpolation),
           };
           break;
         case 'rotationY':

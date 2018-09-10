@@ -2,10 +2,10 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
-    height: 20,
-    width: 20,
+    height: 24,
+    width: 26,
+    paddingTop: 3,
     backgroundColor: 'transparent',
-    paddingTop: 2,
   },
   rowContainer: {
     height: 4,
@@ -13,11 +13,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginVertical: 1,
+    paddingHorizontal: 1,
+    backgroundColor: 'transparent',
   },
   rowTrack: {
     height: 2,
-    width: '100%',
+    width: '90%',
     backgroundColor: 'grey',
+    borderRadius: 1,
   },
   buttonLeft: {
     height: 4,

@@ -1,26 +1,26 @@
 import React, { Component } from 'react';
-import {
-  TouchableOpacity,
-  Animated,
-  Easing,
-  Image,
-  View,
-  Text,
-} from 'react-native';
+import PropTypes from 'prop-types';
+import { Animated, View, Platform } from 'react-native';
 
 import styles from './styles';
 
 const leftInterpolation = {
   inputRange: [0, 0.5, 1],
-  outputRange: [0, -10, 0],
+  outputRange: Platform.OS === 'ios' ? [0, -8, 0] : [0, 22, 0],
 };
 
 const rightInterpolation = {
   inputRange: [0, 0.5, 1],
-  outputRange: [0, 10, 0],
+  outputRange: Platform.OS === 'ios' ? [0, 8, 0] : [0, -22, 0],
 };
 
 class TuneViewIcon extends Component {
+  static propTypes = {
+    active: PropTypes.bool.isRequired,
+    activeTintColor: PropTypes.string.isRequired,
+    inactiveTintColor: PropTypes.string.isRequired,
+  }
+
   constructor() {
     super();
     this.state = {
@@ -33,9 +33,8 @@ class TuneViewIcon extends Component {
       this.state.buttonsAnimation,
       {
         toValue: 1,
-        tension: 2,
+        tension: 1,
         friction: 2,
-        duration: 400,
       },
     ).start(() => this.state.buttonsAnimation.setValue(0));
   }
@@ -43,8 +42,6 @@ class TuneViewIcon extends Component {
   render() {
     const {
       active,
-      tabIcon,
-      iconStyle,
       activeTintColor,
       inactiveTintColor,
     } = this.props;

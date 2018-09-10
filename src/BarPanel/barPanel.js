@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { View, Platform, Dimensions } from 'react-native';
 
 import styles from './styles';
@@ -7,6 +8,11 @@ const { width } = Dimensions.get('screen');
 const buttonAnimatedViewWidth = buttonsArrayLength => width / buttonsArrayLength;
 
 class BarPanel extends Component {
+  static propTypes = {
+    renderButton: PropTypes.func.isRequired,
+    buttonsConfiguration: PropTypes.array.isRequired,
+  }
+
   renderButtons = (buttonsConfiguration) => {
     const viewWidth = buttonAnimatedViewWidth(buttonsConfiguration.length);
     let isAnimated = false;

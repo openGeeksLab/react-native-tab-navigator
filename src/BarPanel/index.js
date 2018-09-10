@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import BarPanel from './barPanel';
 
 class BarPanelContainer extends Component {
+  static propTypes = {
+    navigate: PropTypes.func.isRequired,
+    buttonsConfiguration: PropTypes.array.isRequired,
+  }
+
   onButtonPress = (buttonConfig) => {
     const { navigate } = this.props;
-    if(buttonConfig.__debugOnPress) {
-      buttonConfig.__debugOnPress();
-    }
     navigate(buttonConfig.key);
   }
 
   renderButton = (buttonConfig, viewWidth) => {
-    const { onButtonPress } = this.props;
     const TabButton = buttonConfig.buttonView;
 
     return (
@@ -25,10 +27,7 @@ class BarPanelContainer extends Component {
   }
 
   render() {
-    const {
-      navigate,
-      buttonsConfiguration,
-    } = this.props;
+    const { buttonsConfiguration } = this.props;
 
     return (
       <BarPanel

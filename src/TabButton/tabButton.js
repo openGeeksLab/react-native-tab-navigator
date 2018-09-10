@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
   TouchableOpacity,
   Animated,
+  Platform,
   Easing,
   Image,
   View,
@@ -11,7 +13,6 @@ import {
 import styles from './styles';
 
 import TabAnimations from './TabBarAnimations';
-import TabIcons from '../TabIcons';
 
 const animationDuration = 400;
 
@@ -31,18 +32,24 @@ const viewScaleInterpolationConfig = {
 };
 
 class TabButton extends Component {
+  static propTypes = {
+    onPress: PropTypes.func.isRequired,
+    viewWidth: PropTypes.oneOfType([PropTypes.number, undefined]),
+    buttonConfiguration: PropTypes.object.isRequired,
+  }
+
   constructor(props, context) {
     super(props, context);
-    this.state = {
-      rippleValue: new Animated.Value(0),
-    };
+    const { animation } = this.props.buttonConfiguration;
 
-    this.n = new TabAnimations(this.props.buttonConfiguration.animation);
-    this.animationStyle = this.n.getAnimatedStyle();
+    this.state = { rippleValue: new Animated.Value(0) };
+
+    this.animationObject = new TabAnimations(animation);
+    this.animationStyle = this.animationObject.getAnimatedStyle();
   }
 
   onPressedIn = (onPress) => {
-    this.n.callAnimations();
+    this.animationObject.callAnimations();
     Animated.timing(this.state.rippleValue, {
       toValue: 1,
       duration: animationDuration,
@@ -50,7 +57,7 @@ class TabButton extends Component {
     }).start(() => {
       this.state.rippleValue.setValue(0);
     });
-
+    /* eslint-disable react/no-string-refs */
     if (this.refs.image_ref) {
       this.refs.image_ref.callAnimations();
     }
@@ -160,27 +167,65 @@ class TabButton extends Component {
     return null;
   }
 
-  renderAnimatedButton = (onButtonPress, buttonConfiguration) => (
-      <View style={styles.buttonIOSContainer}>
-        {this.renderRippleView(buttonConfiguration)}
-        <TouchableOpacity
-          onPress={() => this.onPressedIn(onButtonPress, null)}
-          style={styles.touchableView}
-        >
-          <Animated.View
-            style={[
-              styles.iconImageContianer,
-              this.animationStyle,
-            ]}
+  renderAnimatedButton = (onButtonPress, buttonConfiguration) => {
+    const { viewWidth } = this.props;
+    if (Platform.OS === 'ios') {
+      return (
+        <View style={styles.buttonIOSContainer}>
+          {this.renderRippleView(buttonConfiguration)}
+          <TouchableOpacity
+            onPress={() => this.onPressedIn(onButtonPress, null)}
+            style={styles.touchableView}
           >
-            {this.renderIconImage(buttonConfiguration)}
-          </Animated.View>
+            <Animated.View
+              style={[
+                styles.iconImageContianer,
+                this.animationStyle,
+              ]}
+            >
+              {this.renderIconImage(buttonConfiguration)}
+            </Animated.View>
+            <View style={styles.titleContainer}>
+              {this.renderTitleText(buttonConfiguration)}
+            </View>
+          </TouchableOpacity>
+        </View>
+      );
+    }
+    return (
+      <View style={styles.buttonAndroidContainer}>
+        {this.renderRippleView(buttonConfiguration)}
+        <Animated.View
+          style={[
+            styles.iconImageContianer,
+            {
+              top: 50,
+              position: 'absolute',
+              left: (viewWidth - 30) / 2,
+              ...this.animationStyle,
+            },
+          ]}
+        >
+          {this.renderIconImage(buttonConfiguration)}
+        </Animated.View>
+        <TouchableOpacity
+          onPress={() => this.onPressedIn(onButtonPress)}
+          style={[
+            styles.touchableView,
+            styles.touchableAnimatedView,
+            {
+              width: viewWidth / 1.2,
+              left: (viewWidth - (viewWidth / 1.2)) / 2,
+            },
+          ]}
+        >
           <View style={styles.titleContainer}>
             {this.renderTitleText(buttonConfiguration)}
           </View>
         </TouchableOpacity>
       </View>
-  )
+    );
+  }
 
   renderUnanimatedButton = (onButtonPress, buttonConfiguration) => (
     <View style={styles.container}>

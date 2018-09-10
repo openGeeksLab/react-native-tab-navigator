@@ -16,21 +16,7 @@ const defaultScreenOptions = {
   textActiveStyle: null,
   textInactiveStyle: null,
 
-  animation: [
-    {
-      name: '',
-      type: 'bouncing',
-    },
-    {
-      name: '',
-      type: 'bouncing',
-    },
-    // 'ripple',
-    // 'iconScale',
-    // 'rotationX',
-    // 'rotationY',
-    // 'rotationZ',
-  ],
+  animation: [],
 };
 
 const defaultNavigationConfig = {
