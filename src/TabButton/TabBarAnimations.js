@@ -25,6 +25,11 @@ const pendulumInterpolation = {
   outputRange: ['0deg', '60deg', '-60deg', '30deg', '-30deg', '0deg'],
 };
 
+const pendulumRInterpolation = {
+  inputRange: [0, 0.20, 0.40, 0.60, 0.80, 1],
+  outputRange: ['0deg', '60deg', '-60deg', '30deg', '-30deg', '0deg'],
+};
+
 const SPRING_CONFIG = { tension: 2, friction: 2 };
 
 class TabBarAnimations {
@@ -65,6 +70,11 @@ class TabBarAnimations {
         case 'pendulum':
           animationInformaion.interpolation = {
             rotateZ: animationInformaion.animation.interpolate(pendulumInterpolation),
+          };
+          break;
+        case 'pendulumR':
+          animationInformaion.interpolation = {
+            rotateZ: animationInformaion.animation.interpolate(pendulumRInterpolation),
           };
           break;
         case 'rotationY':
