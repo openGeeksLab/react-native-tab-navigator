@@ -1,8 +1,7 @@
 # react-native-tab-navigator
 <p align="center">
   <img src="https://github.com/openGeeksLab/react-native-tab-navigator/blob/develop/header_github-open.png" width="100%" title="hover text">
-  <img src="https://github.com/openGeeksLab/react-native-tab-navigator/blob/develop/header_github-open.png" width="100%" alt="accessibility text">
-</p>
+ </p>
 ## Requirements
 - React Native 0.50+
 
