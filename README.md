@@ -1,8 +1,9 @@
-<p align="center">
+<p align="left">
   <a href="https://www.opengeekslab.com" target="_blank">
   <img src="https://github.com/openGeeksLab/react-native-tab-navigator/blob/develop/header_github-open.png" width="100%" title="openGeeksLab"/>
     </a>
  </p>
+ 
 # react-native-tab-navigator
 
 ## Requirements
