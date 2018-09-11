@@ -9,7 +9,16 @@
 <a href="http://twitter.com/openGeeksLab" rel="nofollow"><img src="https://img.shields.io/badge/Twitter-@openGeeksLab-blue.svg" alt="Twitter" data-canonical-src="https://img.shields.io/badge/Twitter-@openGeeksLab-blue.svg?style=flat" style="max-width:100%;"></a>
   <a href="http://facebook.com/openGeeksLab/"><img src="https://img.shields.io/badge/facebook-us-blue.svg" alt="Donate" data-canonical-src="https://img.shields.io/badge/facebook-us-blue.svg" style="max-width:100%;"></a></p>
  
- 
+# About
+Our company provides custom UI design and development solutions for mobile applications and websites. 
+
+Need a team to create a project?
+
+This project is developed and maintained by <a href="https://www.openGeeksLab.com">openGeeksLab LLC.
+
+  </a>
+
+
 # react-native-tab-navigator
 
 ## Requirements
