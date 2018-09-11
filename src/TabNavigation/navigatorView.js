@@ -14,13 +14,16 @@ class NavigatorView extends Component {
 
   render() {
     const {
+      screen,
       navigate,
       buttonsConfiguration,
     } = this.props;
-
+    const ScreenView = this.props.screen;
     return (
       <View style={styles.navigationContainer}>
-        <View style={styles.screenContainer} />
+        <View style={styles.screenContainer}>
+          {ScreenView}
+        </View>
         <BarPanel
           navigate={navigate}
           buttonsConfiguration={buttonsConfiguration}

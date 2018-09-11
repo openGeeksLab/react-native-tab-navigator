@@ -24,6 +24,11 @@ const defaultNavigationConfig = {
   screenOptions: defaultScreenOptions,
 };
 
+const screensState = {
+  state: { name: '' },
+  screens: { },
+};
+
 function generateStateInitInformation(router, config) {
   const routesEntries = Object.entries(router);
   const buttonsArray = routesEntries.map((item) => {
@@ -45,18 +50,27 @@ function generateStateInitInformation(router, config) {
 
     return { ...screenOptions };
   });
+
   return buttonsArray;
 }
 
 function navigateToScreen(screenName, currentState) {
+  let nextScreenName = screenName;
   const nextState = currentState.map((item) => {
+    const isCurrentScreen = item.key === screenName;
     const nextItem = {
       ...item,
-      active: item.key === screenName,
+      active: isCurrentScreen,
     };
+    if (isCurrentScreen) {
+      nextScreenName = item.key;
+    }
     return nextItem;
   });
-  return nextState;
+  return {
+    state: nextState,
+    screenName: nextScreenName,
+  };
 }
 
 function createTabNavigator(router, navConfig) {
@@ -69,6 +83,21 @@ function createTabNavigator(router, navConfig) {
       ...navConfig.screenOptions,
     },
   };
+  screensState.state.name = navigatorConfig.defaultRoute;
+  const routesEntries = Object.entries(router);
+  routesEntries.forEach((item) => {
+    screensState.screens[item[0]] = React.createElement(item[1].screen);
+  });
+  // screensState.screens =
+  // if (navigatorConfig.lazy) {
+  //   console.log('lazy');
+  //   const routesEntries = Object.entries(router);
+  //   routesEntries.map((item) => {
+  //     return item;
+  //   });
+  // } else {
+  // }
+
   const routeState = generateStateInitInformation(navigatorRouter, navigatorConfig);
 
   class TabNavigation extends React.Component {
@@ -77,14 +106,21 @@ function createTabNavigator(router, navConfig) {
       this.routeState = routeState;
     }
 
-    navigateTo = (screenName) => {
-      this.routeState = navigateToScreen(screenName, this.routeState);
+    navigateTo = (navToScreen) => {
+      const { state, screenName } = navigateToScreen(navToScreen, this.routeState);
+      this.routeState = state;
+      screensState.state.name = screenName;
       this.forceUpdate();
+    }
+
+    getScreenFromRoute = () => {
+
     }
 
     render() {
       return (
         <NavigatorView
+          screen={screensState.screens[screensState.state.name]}
           navigate={this.navigateTo}
           buttonsConfiguration={this.routeState}
         />
