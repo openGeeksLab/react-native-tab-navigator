@@ -75,28 +75,28 @@ function navigateToScreen(screenName, currentState) {
 
 function createTabNavigator(router, navConfig) {
   const navigatorRouter = router;
+  const tmpNavConfig = { ...navConfig };
   const navigatorConfig = {
     ...defaultNavigationConfig,
-    ...navConfig,
+    ...tmpNavConfig,
+    defaultRoute: tmpNavConfig.defaultRoute || Object.keys(router)[0],
     screenOptions: {
       ...defaultNavigationConfig.screenOptions,
-      ...navConfig.screenOptions,
+      ...tmpNavConfig.screenOptions,
     },
   };
   screensState.state.name = navigatorConfig.defaultRoute;
   const routesEntries = Object.entries(router);
-  routesEntries.forEach((item) => {
-    screensState.screens[item[0]] = React.createElement(item[1].screen);
-  });
-  // screensState.screens =
-  // if (navigatorConfig.lazy) {
-  //   console.log('lazy');
-  //   const routesEntries = Object.entries(router);
-  //   routesEntries.map((item) => {
-  //     return item;
-  //   });
-  // } else {
-  // }
+
+  if (navigatorConfig.lazy) {
+    screensState.screens[screensState.state.name] = React.createElement(
+      router[screensState.state.name].screen,
+    );
+  } else {
+    routesEntries.forEach((item) => {
+      screensState.screens[item[0]] = React.createElement(item[1].screen);
+    });
+  }
 
   const routeState = generateStateInitInformation(navigatorRouter, navigatorConfig);
 
@@ -110,6 +110,12 @@ function createTabNavigator(router, navConfig) {
       const { state, screenName } = navigateToScreen(navToScreen, this.routeState);
       this.routeState = state;
       screensState.state.name = screenName;
+
+      if (!screensState.screens[screensState.state.name]) {
+        screensState.screens[screensState.state.name] = React.createElement(
+          router[screensState.state.name].screen,
+        );
+      }
       this.forceUpdate();
     }
 

@@ -8,6 +8,7 @@ import styles from './styles';
 
 class NavigatorView extends Component {
   static propTypes = {
+    // screen: 
     navigate: PropTypes.func.isRequired,
     buttonsConfiguration: PropTypes.array.isRequired,
   }
@@ -18,7 +19,7 @@ class NavigatorView extends Component {
       navigate,
       buttonsConfiguration,
     } = this.props;
-    const ScreenView = this.props.screen;
+    const ScreenView = screen;
     return (
       <View style={styles.navigationContainer}>
         <View style={styles.screenContainer}>
