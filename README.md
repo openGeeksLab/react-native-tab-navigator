@@ -16,6 +16,7 @@
 - React Native 0.50+
 
 ## Installation
+Just run:
 - npm install --save https://github.com/openGeeksLab/react-native-tab-navigator.git
 
 ## Basic usage
