@@ -2,26 +2,20 @@
   <a href="https://www.opengeekslab.com" target="_blank">
   <img src="https://github.com/openGeeksLab/react-native-tab-navigator/blob/develop/header_github-open.png" width="100%" title="openGeeksLab"/>
     </a>
-<<<<<<< HEAD
  </p>
-=======
 
 <a href="http://developer.apple.com" rel="nofollow"><img  alt="iOS" src="https://img.shields.io/badge/platform-iOS-brightgreen.svg" style="max-width:100%;"></a> <a href="https://www.android.com" rel="nofollow"><img src="https://img.shields.io/badge/platform-Android-brightgreen.svg" alt="iOS" data-canonical-src=" https://img.shields.io/badge/platform-Android-brightgreen.svg" style="max-width:100%;"></a>
 <a href="https://github.com/openGeeksLab/react-native-tab-navigator">
   <img src="https://img.shields.io/badge/npm-compatible-green.svg" alt="npm compatible" data-canonical-src="https://img.shields.io/badge/npm-compatible-green.svg" style="max-width:100%;"></a>
 <a href="http://twitter.com/openGeeksLab" rel="nofollow"><img src="https://img.shields.io/badge/Twitter-@openGeeksLab-blue.svg" alt="Twitter" data-canonical-src="https://img.shields.io/badge/Twitter-@openGeeksLab-blue.svg?style=flat" style="max-width:100%;"></a>
   <a href="http://facebook.com/openGeeksLab/"><img src="https://img.shields.io/badge/facebook-us-blue.svg" alt="Donate" data-canonical-src="https://img.shields.io/badge/facebook-us-blue.svg" style="max-width:100%;"></a></p>
- 
+
 # About
-Our company provides custom UI design and development solutions for mobile applications and websites. 
+Our company provides custom UI design and development solutions for mobile applications and websites.
 
 Need a team to create a project?
 
-This project is developed and maintained by <a href="https://www.openGeeksLab.com">openGeeksLab LLC.
-
-  </a>
-
->>>>>>> a7b0aaadede08af1dc045cf376c510efbb293660
+This project is developed and maintained by <a href="https://www.openGeeksLab.com">openGeeksLab LLC.</a>
 
 # react-native-tab-navigator
 
