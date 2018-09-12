@@ -291,3 +291,11 @@ const myIcon = require('./my-icon-file.png');
 ```
 You can send a component as an icon.
 If the component implements internal animations, it must provide a ```callAnimations()``` method to call the animations.
+# Contact us if interested.
+<a href="https://opengeekslab.com/contact-us/">
+<img src="https://github.com/openGeeksLab/docs/blob/master/contact_our_team.png" width="25%" height="25%" style="max-width:100%;"></a>
+
+# Licence
+Expanding is released under the MIT license.
+
+
