@@ -147,6 +147,94 @@ const styles = StyleSheet.create({
 });
 ```
 
+To add a screen to the tab bar, you need to create an object containing information about routers.
+```javascript
+Screen_1: {
+    screen: Screen1,
+    screenOptions: {
+      title: 'Item 1',
+      showTitle: true,
+      animated: true,
+      tabIcon: TabIcons.Social,
+      animation: [
+        {
+          name: 'rotationY',
+          type: 'bouncing',
+        },
+      ],
+    },
+}
+```
+<ul>
+  <li>
+    <p>
+      ```screen``` -  is the screen to display
+    </p>
+  </li>
+  <li>
+    <p>
+      ```screenOptions``` - is options for the screen, which could contain the following fields:
+    </p>
+    <ul>
+      <li>
+        <p>
+          ```title``` - the name under the tab icon,  if you do not specify it, then it will use as a default  and will be equal to the key (as the example: Screen_1)  
+        </p>
+      </li>
+      <li>
+        <p>
+          ```showTitle``` - is the flag, indicating the display of the name of the tab.
+        </p>
+      </li>
+      <li>
+        <p>
+          ```animated``` - is the flag, indicating whether the icon should be animated.
+        </p>
+      </li>
+      <li>
+        <p>
+          ```tabIcon``` - fields of the transfer picture or component, which is used as a tab icon.
+        </p>
+      </li>
+      <li>
+        <p>
+          ```animation``` - the field which is contain an array with the desired animations provided by the library.
+        </p>
+      </li>
+      <li>
+        <p>
+          ```activeTintColor``` - the color of active tab
+        </p>
+      </li>
+      <li>
+        <p>
+          ```inactiveTintColor``` - inactive tab color
+        </p>
+      </li>
+      <li>
+        <p>
+          ```iconStyle``` - custom Icon Style
+        </p>
+      </li>
+      <li>
+        <p>
+          ```textStyle``` - custom name style of the tab
+        </p>
+      </li>
+      <li>
+        <p>
+          ```textActiveStyle``` - custom name style for an active tab
+        </p>
+      </li>
+      <li>
+        <p>
+          ```textInactiveStyle``` - custom name style for inactive tab
+        </p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
 ## Animations usage
 The library provides animations fume, pendulum, rotationX, rotationY, rotationZ, opacity, scale, ripple. All animations can be combined.
 ```javascript
