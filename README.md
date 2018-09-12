@@ -3,11 +3,13 @@
   <img src="https://github.com/openGeeksLab/react-native-tab-navigator/blob/develop/header_github-open.png" width="100%" title="openGeeksLab"/>
     </a>
  </p>
- 
+
 # react-native-tab-navigator
 
 ## Requirements
 - React Native 0.50+
+- iOS 9.0+
+- Android 4.2+
 
 ## Installation
 - npm install --save https://github.com/openGeeksLab/react-native-tab-navigator.git
@@ -132,3 +134,51 @@ const styles = StyleSheet.create({
 ```
 
 ## Animations usage
+The library provides animations fume, pendulum, rotationX, rotationY, rotationZ, opacity, scale, ripple. All animations can be combined.
+```javascript
+  animation: [
+    'ripple',
+    'scale',
+  ]
+```
+Also, animations can be additionally set aside. If you transfer an object to the animation array that consists of the field 'name'  - the name of the animation and the type: "bouncing", the animation will have an "elastic effect" (except Ripple).
+```javascript
+animation: [{
+  name: 'scale',
+  type: 'bouncing',
+}]
+```
+
+In the field of durations, you specify the animation time in milliseconds (400ms by default)
+```javascript
+animation: [
+  {
+    name: 'fume',
+    duration: 700,
+  },
+  {
+    name: 'fadeOut',
+    duration: 700,
+  },
+]
+```
+
+The library provides built-in icons for ```Social```, ```Message```, ```TuneView```, ```Bell```, ```Lever```, ```Tune```.
+They can be imported
+```javascript
+import { TabIcons } from 'react-native-tab-navigator';
+{
+      title: 'Item 5',
+      tabIcon: TabIcons.Lever
+}
+```
+You can transfer your icon
+```javascript
+const myIcon = require('./my-icon-file.png');
+{
+      title: 'Item 5',
+      tabIcon: myIcon
+}
+```
+You can send a component as an icon.
+If the component implements internal animations, it must provide a ```callAnimations()``` method to call the animations.
