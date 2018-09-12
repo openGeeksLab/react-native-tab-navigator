@@ -17,6 +17,9 @@ Need a team to create a project?
 
 This project is developed and maintained by <a href="https://www.openGeeksLab.com">openGeeksLab LLC.</a>
 
+<a href="mailto:info@opengeekslab.com?subject=Project%20inquiry%20from%20Github">
+<img src="https://github.com/openGeeksLab/docs/blob/master/contact_our_team.png" width="25%" height="25%" style="max-width:100%;"></a>
+
 # react-native-tab-navigator
 
 ## Requirements
