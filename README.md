@@ -168,67 +168,67 @@ Screen_1: {
 <ul>
   <li>
     <p>
-      ```screen``` -  is the screen to display
+      screen -  is the screen to display
     </p>
   </li>
   <li>
     <p>
-      ```screenOptions``` - is options for the screen, which could contain the following fields:
+      screenOptions - is options for the screen, which could contain the following fields:
     </p>
     <ul>
       <li>
         <p>
-          ```title``` - the name under the tab icon,  if you do not specify it, then it will use as a default  and will be equal to the key (as the example: Screen_1)  
+          title - the name under the tab icon,  if you do not specify it, then it will use as a default  and will be equal to the key (as the example: Screen_1)  
         </p>
       </li>
       <li>
         <p>
-          ```showTitle``` - is the flag, indicating the display of the name of the tab.
+          showTitle - is the flag, indicating the display of the name of the tab.
         </p>
       </li>
       <li>
         <p>
-          ```animated``` - is the flag, indicating whether the icon should be animated.
+          animated - is the flag, indicating whether the icon should be animated.
         </p>
       </li>
       <li>
         <p>
-          ```tabIcon``` - fields of the transfer picture or component, which is used as a tab icon.
+          tabIcon - fields of the transfer picture or component, which is used as a tab icon.
         </p>
       </li>
       <li>
         <p>
-          ```animation``` - the field which is contain an array with the desired animations provided by the library.
+          animation - the field which is contain an array with the desired animations provided by the library.
         </p>
       </li>
       <li>
         <p>
-          ```activeTintColor``` - the color of active tab
+          activeTintColor - the color of active tab
         </p>
       </li>
       <li>
         <p>
-          ```inactiveTintColor``` - inactive tab color
+          inactiveTintColor - inactive tab color
         </p>
       </li>
       <li>
         <p>
-          ```iconStyle``` - custom Icon Style
+          iconStyle - custom Icon Style
         </p>
       </li>
       <li>
         <p>
-          ```textStyle``` - custom name style of the tab
+          textStyle - custom name style of the tab
         </p>
       </li>
       <li>
         <p>
-          ```textActiveStyle``` - custom name style for an active tab
+          textActiveStyle - custom name style for an active tab
         </p>
       </li>
       <li>
         <p>
-          ```textInactiveStyle``` - custom name style for inactive tab
+          textInactiveStyle - custom name style for inactive tab
         </p>
       </li>
     </ul>
