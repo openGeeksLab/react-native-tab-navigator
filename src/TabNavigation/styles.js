@@ -1,4 +1,9 @@
-import { StyleSheet, Platform } from 'react-native';
+import { StyleSheet, Platform, Dimensions } from 'react-native';
+
+const { height, width } = Dimensions.get('screen');
+
+export const isIOSX = Platform.OS === 'ios'
+  && (height === 812 || width === 812);
 
 const styles = StyleSheet.create({
   navigationContainer: {
@@ -7,7 +12,14 @@ const styles = StyleSheet.create({
   screenContainer: {
     flex: 1,
     backgroundColor: 'rgb(255, 255, 255)',
-    marginBottom: 60,
+    ...Platform.select({
+      ios: {
+        marginBottom: isIOSX ? 75 : 60,
+      },
+      android: {
+        marginBottom: 60,
+      },
+    }),
   },
 });
 
