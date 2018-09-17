@@ -7,6 +7,17 @@
   "bugs": {
     "url": "https://github.com/openGeeksLab/react-native-tab-navigator/issues"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/openGeeksLab/react-native-tab-navigator.git"
+  },
+  "keywords": [
+    "react-native",
+    "tab-bar",
+    "navigator",
+    "ios",
+    "android"
+  ],
   "license": "MIT",
   "main": "src/index.js",
   "scripts": {
