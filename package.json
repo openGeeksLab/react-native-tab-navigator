@@ -2,14 +2,13 @@
   "name": "react-native-tab-navigator",
   "version": "1.0.0",
   "description": "A tab bar that switches between scenes, written in JS for cross-platform support",
-  "homepage": "https://github.com/openGeeksLab/react-native-tab-navigator/#README.md",
-  "author": "OpenGeeksLab",
-  "bugs": {
-    "url": "https://github.com/openGeeksLab/react-native-tab-navigator/issues"
-  },
+  "main": "src/index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/openGeeksLab/react-native-tab-navigator.git"
+    "url": "git+https://github.com/openGeeksLab/react-native-tab-navigator"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "react-native",
@@ -18,12 +17,13 @@
     "ios",
     "android"
   ],
+  "author": "openGeeksLab",
   "license": "MIT",
-  "main": "src/index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "bugs": {
+    "url": "https://github.com/openGeeksLab/react-native-tab-navigator/issues"
   },
-  "dependencies": {
+ "homepage": "https://github.com/openGeeksLab/react-native-tab-navigator/#README.md",
+ "dependencies": {
     "prop-types": "^15.6.2"
   }
 }
