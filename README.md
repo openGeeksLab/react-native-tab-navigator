@@ -33,7 +33,7 @@ This project is developed and maintained by <a href="https://www.openGeeksLab.co
 
 ## Installation
 Just run:
-- npm install --save https://github.com/openGeeksLab/react-native-tab-navigator.git
+- npm i @opengeekslab/react-native-tab-navigator
 
 ## Basic usage
 ```javascript
