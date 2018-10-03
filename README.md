@@ -295,6 +295,7 @@ If the component implements internal animations, it must provide a ```callAnimat
 <a href="https://opengeekslab.com/contact-us/">
 <img src="https://raw.githubusercontent.com/openGeeksLab/docs/master/contact_our_team.png" width="25%" height="25%" style="max-width:100%;"></a>
 
+# Inspired by <a href="https://github.com/Ramotion/animated-tab-bar">@Ramotion</a>
 # Licence
 Expanding is released under the MIT license.
 
