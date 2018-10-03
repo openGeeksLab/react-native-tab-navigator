@@ -39,7 +39,7 @@ Just run:
 ```javascript
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { TabNavigation, TabButton, TabIcons } from 'react-native-tab-navigator';
+import { TabNavigation, TabButton, TabIcons } from '@opengeekslab/react-native-tab-navigator';
 
 import Screen1 from './screens/screen1';
 import Screen2 from './screens/screen2';
