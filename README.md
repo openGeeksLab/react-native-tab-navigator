@@ -1,6 +1,6 @@
 <p align="left">
   <a href="https://www.opengeekslab.com" target="_blank">
-  <img src="https://raw.githubusercontent.com/openGeeksLab/react-native-tab-navigator/develop/header_github-open.png" width="100%" title="openGeeksLab"/>
+  <img src="https://raw.githubusercontent.com/openGeeksLab/react-native-tab-navigator/master/header_github-open.png?token=ADh7RSsr5AWO0qzR6u9RFI4OFBAokikEks5bvdtRwA%3D%3D" width="100%" title="openGeeksLab"/>
     </a>
  </p>
 
