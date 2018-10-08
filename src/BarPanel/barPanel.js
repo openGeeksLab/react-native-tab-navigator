@@ -13,6 +13,12 @@ class BarPanel extends Component {
     buttonsConfiguration: PropTypes.array.isRequired,
   }
 
+  componentWillMount() {
+    Dimensions.addEventListener('change', () => {
+      this.forceUpdate();
+    });
+  }
+
   renderButtons = (buttonsConfiguration) => {
     const viewWidth = buttonAnimatedViewWidth(buttonsConfiguration.length);
     let isAnimated = false;
