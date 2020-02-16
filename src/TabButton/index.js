@@ -6,7 +6,7 @@ import TabButton from './tabButton';
 class TabButtonContainer extends Component {
   static propTypes = {
     onPress: PropTypes.func.isRequired,
-    viewWidth: PropTypes.oneOfType([PropTypes.number, undefined]),
+    viewWidth: PropTypes.number,
     buttonConfiguration: PropTypes.object.isRequired,
   }
 
