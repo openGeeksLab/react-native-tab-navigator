@@ -13,7 +13,7 @@ class BarPanel extends Component {
     buttonsConfiguration: PropTypes.array.isRequired,
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     Dimensions.addEventListener('change', () => {
       this.forceUpdate();
     });
