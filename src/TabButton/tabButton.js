@@ -34,7 +34,7 @@ const viewScaleInterpolationConfig = {
 class TabButton extends Component {
   static propTypes = {
     onPress: PropTypes.func.isRequired,
-    viewWidth: PropTypes.oneOfType([PropTypes.number, undefined]),
+    viewWidth: PropTypes.number,
     buttonConfiguration: PropTypes.object.isRequired,
   }
 
